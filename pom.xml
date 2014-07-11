@@ -5,7 +5,7 @@
     <groupId>com.ittekikun.plugin</groupId>
     <artifactId>MineTweet</artifactId>
     <packaging>jar</packaging>
-    <version>2.0</version>
+    <version>1.4</version>
     <url>http://forum.minecraftuser.jp/viewtopic.php?f=26&amp;t=8950</url>
 
     <name>MineTweet_for_Plugin</name>
