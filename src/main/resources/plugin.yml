@@ -1,0 +1,29 @@
+name: MineTweet_for_Plugin
+main: com.ittekikun.plugin.MineTweet.MineTweet
+version: 1.4
+description: Test
+authors: [ittekikun]
+website: http://forum.minecraftuser.jp/viewtopic.php?f=26&t=8950
+softdepend: [LunaChat, MCBans]
+
+commands:
+   MineTweet:
+      description: This is a MineTweet command.
+      usage: "Usage: /MineTweet [args]"
+   Mt:
+      description: This is a MineTweet command.
+      usage: "Usage: /Mt [args]"
+   Tw:
+      description: This is a MineTweet command.
+      usage: "Usage: /Mt [args]"
+      
+permissions:
+  MineTweet.*:
+    description: Permission to perform all commands.
+    default: op
+  MineTweet.Reload:
+    description: Permission to Reload configuration..
+    default: op
+  MineTweet.Tweet:
+    description: Permission to Tweet command.
+    default: op
