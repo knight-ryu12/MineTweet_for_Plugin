@@ -11,7 +11,7 @@
 #
 #VersionCheck: ログイン時にバージョンチェックをするか(OPとMineTweet.infoの権限を持ってる人にだけ表示されます)
 #
-#debugmode: 基本的には弄らないでください
+#debugmode: デバッグモードと言う名のβ機能使用モード。画像付きログイン・ログアウトツイートを使用したい方は有効にしてください。
 
 GUICertify: true
 consumerKey: xxxxxxxxxx
