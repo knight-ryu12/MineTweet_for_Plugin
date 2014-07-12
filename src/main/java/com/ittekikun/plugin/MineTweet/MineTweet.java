@@ -47,7 +47,6 @@ public class MineTweet extends JavaPlugin
 	    registerCommands();
 
         log =  Logger.getLogger("Minecraft");
-
     }
 
 	private void registerCommands()

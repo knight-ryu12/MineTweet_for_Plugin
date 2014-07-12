@@ -227,7 +227,6 @@ public class Utility
 		if (message != null)
 		{
 			message = message.replaceAll("&([0-9a-fk-or])", "\u00A7$1");
-			//debug(message);//debug
 			Bukkit.broadcastMessage(message);
 		}
 	}
