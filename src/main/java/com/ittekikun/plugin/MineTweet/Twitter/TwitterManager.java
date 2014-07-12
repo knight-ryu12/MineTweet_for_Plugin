@@ -100,13 +100,15 @@ public class TwitterManager
 		}
 	}
 
-	public void tweet(StatusUpdate tweet) throws TwitterException
+	public void tweet(String tweet,File media) throws TwitterException
 	{
 		String time = Utility.timeGetter(mtConfig.dateformat);
+		final StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
+		statusUpdate.media(media);
 
 		if(status)
 		{
-			twitter.updateStatus(tweet + "\n" + time);
+			twitter.updateStatus(statusUpdate);
 		}
 	}
 

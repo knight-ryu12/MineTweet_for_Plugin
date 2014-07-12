@@ -47,6 +47,8 @@ public class MineTweetConfig
 
 	public List<String> UserList;
 
+	public Boolean debugMode;
+
 	public MineTweetConfig(MineTweet plugin)
 	{
 		this.plugin = plugin;
@@ -67,6 +69,8 @@ public class MineTweetConfig
 		this.accessTokenSecret = system.getConfig().getString("accessTokenSecret","xxxxxxxxxx");
 
 		this.versionCheck = system.getConfig().getBoolean("VersionCheck",true);
+
+		this.debugMode = system.getConfig().getBoolean("DebugMode",false);
 
 		this.dateformat = twitter.getConfig().getString("DateFormat", "EEE MMM d HH:mm:ss z");
 

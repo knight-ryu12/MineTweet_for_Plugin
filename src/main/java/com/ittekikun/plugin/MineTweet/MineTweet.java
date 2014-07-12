@@ -95,7 +95,7 @@ public class MineTweet extends JavaPlugin
 			new HelpCommand().run(this, sender, args, commandLabel);
 			return true;
 		}
-//		//
+//		詰んだ
 //		else if(cmd.getName().equalsIgnoreCase("tw") || cmd.getName().equalsIgnoreCase("tweet"))
 //		{
 //			new TweetCommand().run(this, sender, args, commandLabel);
