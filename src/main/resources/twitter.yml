@@ -27,7 +27,7 @@
 #ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 #ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 
-AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか
+AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか※BETA機能
 AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
 
 ServerStartTweet: false
