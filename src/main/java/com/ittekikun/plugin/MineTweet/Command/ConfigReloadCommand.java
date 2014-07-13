@@ -2,7 +2,9 @@ package com.ittekikun.plugin.MineTweet.Command;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Data.Permission;
+import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
 import com.ittekikun.plugin.MineTweet.Utility;
+import org.bukkit.event.HandlerList;
 
 public class ConfigReloadCommand extends BaseCommand
 {
@@ -20,6 +22,8 @@ public class ConfigReloadCommand extends BaseCommand
 		try
 		{
 			plugin.mtConfig.loadConfig();
+			HandlerList.unregisterAll(plugin);
+			RegistrationListener.registrationListener(plugin);
 		}
 		catch (Exception ex)
 		{

@@ -35,7 +35,7 @@ public class QuitPlayerEvent implements Listener
 		if(!mtConfig.debugMode)
 		{
 
-			Player player = event.getPlayer(); // ログアウトした
+			Player player = event.getPlayer();
 			String name = player.getName();
 
 			Player[] Member = plugin.getServer().getOnlinePlayers();
