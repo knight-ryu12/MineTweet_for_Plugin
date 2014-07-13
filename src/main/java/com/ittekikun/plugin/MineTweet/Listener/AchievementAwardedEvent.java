@@ -32,7 +32,7 @@ public class AchievementAwardedEvent implements Listener
 
 		String message = replaceKeywords(mtConfig.achievement_message_temp, player, achievement);
 
-		twitterManager.tweet(message,(new File(plugin.getDataFolder(), "temp.png")));
+		twitterManager.tweet(message);
 	}
 
 	private String replaceKeywords(String source,String name,String achievement)
