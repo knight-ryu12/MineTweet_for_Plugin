@@ -53,6 +53,7 @@ public class QuitPlayerEvent implements Listener
 			Player[] member = plugin.getServer().getOnlinePlayers();
 			final String number = String.valueOf(member.length);
 
+			//画像生成でラグが起きるので別スレッド
 			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable()
 			{
 				@Override
