@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import twitter4j.TwitterException;
 
-import java.io.File;
-
 public class AchievementAwardedEvent implements Listener
 {
 	MineTweet plugin;
