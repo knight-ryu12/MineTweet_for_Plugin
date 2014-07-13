@@ -77,5 +77,10 @@ public class RegistrationListener
 				MineTweet.log.warning("LunaChatが導入されてないので連携を無効化します。");
 			}
 		}
+
+		if (mtConfig.achievementAwardedTweet)
+		{
+			pluginmanager.registerEvents(new AchievementAwardedEvent(plugin), plugin);
+		}
 	}
 }

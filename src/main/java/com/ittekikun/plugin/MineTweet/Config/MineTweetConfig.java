@@ -42,6 +42,9 @@ public class MineTweetConfig
 	public Boolean mcBansKickTweet;
 	public Boolean lunaChatTweet;
 
+	public Boolean achievementAwardedTweet;
+	public String achievement_message_temp;
+
 	public Boolean serverStartTweet;
 	public Boolean serverStopTweet;
 
@@ -92,6 +95,9 @@ public class MineTweetConfig
 		this.ban_message_temp = twitter.getConfig().getString("BanMessageTemplate", "$userが、「$reason」という理由で、$senderによってグローバルBANされました。【自動投稿】");
 		this.mcBansKickTweet = twitter.getConfig().getBoolean("MCBansKICKTweet");
 		this.kick_message_temp = twitter.getConfig().getString("KickMessageTemplate", "$userが、「$reason」という理由で、$senderによってKICKされました。【自動投稿】");
+
+		this.achievementAwardedTweet = twitter.getConfig().getBoolean("AchievementAwardedTweet");
+		this.achievement_message_temp = twitter.getConfig().getString("AchievementAwardedTemplate", "$userが、「$achievement」という実績を取得しました。【自動投稿】");
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
 

@@ -1,6 +1,5 @@
 package com.ittekikun.plugin.MineTweet.Command;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Data.Permission;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
 import com.ittekikun.plugin.MineTweet.Utility;

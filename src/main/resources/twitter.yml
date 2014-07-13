@@ -27,6 +27,9 @@
 #ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 #ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 
+AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか
+AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
+
 ServerStartTweet: false
 ServerStopTweet: false
 
@@ -50,3 +53,6 @@ BanMessageTemplate: $userが、「$reason」という理由で、$senderによ�
 LunaChatTweet: false
 ChannelCreateTemplate: チャットチャンネル「$channel」が作成されました。【自動投稿】
 ChannelDeleteTemplate: チャットチャンネル「$channel」が削除されました。【自動投稿】
+
+AchievementAwardedTweet: false
+AchievementAwardedTemplate: $userが、「$achievement」という実績を取得しました。【自動投稿】

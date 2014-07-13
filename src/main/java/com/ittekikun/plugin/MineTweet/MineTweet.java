@@ -31,6 +31,7 @@ public class MineTweet extends JavaPlugin
 	public static final String KEYWORD_NUMBER = "$number";
 	public static final String KEYWORD_CHANNEL = "$channel";
 	public static final String KEYWORD_MESSAGE = "$message";
+	public static final String KEYWORD_ACHIEVEMENT = "$achievement";
 
     @Override
     public void onEnable()

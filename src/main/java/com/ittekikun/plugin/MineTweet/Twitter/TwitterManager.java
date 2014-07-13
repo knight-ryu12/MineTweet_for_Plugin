@@ -36,7 +36,7 @@ public class TwitterManager
 	{
 		if(mtConfig.GUICertify)
 		{
-			//TwitterStream twStream = new TwitterStreamFactory(configuration).getInstance();//
+			//TwitterStream twStream = new TwitterStreamFactory(configuration).getInstance();
 			ConfigurationBuilder conf = new ConfigurationBuilder();
 
 			conf.setOAuthConsumerKey(ConsumerKey.m_ConsumerKey);
