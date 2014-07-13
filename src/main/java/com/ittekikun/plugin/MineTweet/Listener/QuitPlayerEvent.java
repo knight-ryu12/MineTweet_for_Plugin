@@ -136,7 +136,7 @@ public class QuitPlayerEvent implements Listener
 			e.printStackTrace();
 		}
 
-		String message = replaceKeywords(mtConfig.join_message_temp, playerName, number);
+		String message = replaceKeywords(mtConfig.quit_message_temp, playerName, number);
 
 		twitterManager.tweet(message,(new File(plugin.getDataFolder(), "temp.png")));
 	}
