@@ -6,6 +6,7 @@ import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import twitter4j.StatusUpdate;
@@ -30,7 +31,7 @@ public class JoinPlayerEvent implements Listener
 		this.twitterManager = plugin.twitterManager;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onJoinPlayer(final PlayerJoinEvent event) throws TwitterException
 	{
 		if(!mtConfig.debugMode)
