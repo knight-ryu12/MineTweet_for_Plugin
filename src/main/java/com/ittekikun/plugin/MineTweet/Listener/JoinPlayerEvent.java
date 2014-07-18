@@ -61,7 +61,6 @@ public class JoinPlayerEvent implements Listener
 				{
 					try
 					{
-						System.out.println("終わりました");
 						pictureTweet(name,number);
 					}
 					catch(TwitterException e)
