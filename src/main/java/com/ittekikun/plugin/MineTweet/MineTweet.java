@@ -44,7 +44,7 @@ public class MineTweet extends JavaPlugin
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
 
-	    RegistrationListener.registrationListener(instance);
+	    RegistrationListener.registrationListener(this);
 	    registerCommands();
 
         log =  Logger.getLogger("Minecraft");

@@ -127,7 +127,7 @@ public class QuitPlayerEvent implements Listener
 		baseGraphics.drawImage(name, 200, 0, null);
 		baseGraphics.drawImage(mes, 200, 100, null);
 
-		//	ファイル保存
+		//一時ファイル保存
 		try
 		{
 			ImageIO.write(base, "png", new File(plugin.getDataFolder(), "temp.png"));
