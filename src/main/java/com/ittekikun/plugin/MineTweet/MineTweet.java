@@ -38,16 +38,16 @@ public class MineTweet extends JavaPlugin
     {
 	    instance = this;
 
+	    log =  Logger.getLogger("Minecraft");
+
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
 
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
 
-	    RegistrationListener.registrationListener(this);
+	    RegistrationListener.registrationListener(instance);
 	    registerCommands();
-
-        log =  Logger.getLogger("Minecraft");
     }
 
 	private void registerCommands()
