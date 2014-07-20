@@ -50,6 +50,13 @@
             <version>2.2.10</version>
         </dependency>
         <dependency>
+            <groupId>com.vexsoftwar</groupId>
+            <artifactId>votifier</artifactId>
+            <version>1.9</version>
+            <systemPath>${basedir}/lib/Votifier.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
             <groupId>com.mcbans.firestar</groupId>
             <artifactId>MCBans</artifactId>
             <version>4.3.4</version>

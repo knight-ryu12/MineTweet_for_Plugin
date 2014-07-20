@@ -82,5 +82,10 @@ public class RegistrationListener
 		{
 			pluginmanager.registerEvents(new AchievementAwardedEvent(plugin), plugin);
 		}
+
+		if (mtConfig.votifierReceiveTweetTweet)
+		{
+			pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
+		}
 	}
 }

@@ -45,6 +45,9 @@ public class MineTweetConfig
 	public Boolean achievementAwardedTweet;
 	public String achievement_message_temp;
 
+	public Boolean votifierReceiveTweetTweet;
+	public String votifier_message_temp;
+
 	public Boolean serverStartTweet;
 	public Boolean serverStopTweet;
 
@@ -92,12 +95,15 @@ public class MineTweetConfig
 		this.CD_message_temp = twitter.getConfig().getString("ChannelDeleteTemplate", "チャットチャンネル「$channel」が削除されました。【自動投稿】");
 
 		this.mcBansBanTweet = twitter.getConfig().getInt("MCBansBANTweet");
-		this.ban_message_temp = twitter.getConfig().getString("BanMessageTemplate", "$userが、「$reason」という理由で、$senderによってグローバルBANされました。【自動投稿】");
+		this.ban_message_temp = twitter.getConfig().getString("BanMessageTemplate", "$userさんが、「$reason」という理由で、$senderによってグローバルBANされました。【自動投稿】");
 		this.mcBansKickTweet = twitter.getConfig().getBoolean("MCBansKICKTweet");
-		this.kick_message_temp = twitter.getConfig().getString("KickMessageTemplate", "$userが、「$reason」という理由で、$senderによってKICKされました。【自動投稿】");
+		this.kick_message_temp = twitter.getConfig().getString("KickMessageTemplate", "$userさんが、「$reason」という理由で、$senderによってKICKされました。【自動投稿】");
 
 		this.achievementAwardedTweet = twitter.getConfig().getBoolean("AchievementAwardedTweet");
-		this.achievement_message_temp = twitter.getConfig().getString("AchievementAwardedTemplate", "$userが、「$achievement」という実績を取得しました。【自動投稿】");
+		this.achievement_message_temp = twitter.getConfig().getString("AchievementAwardedTemplate", "$userさんが、「$achievement」という実績を取得しました。【自動投稿】");
+
+		this.votifierReceiveTweetTweet = twitter.getConfig().getBoolean("VotifierReceiveTweet");
+		this.votifier_message_temp = twitter.getConfig().getString("VotifierReceiveTemplate", "$userさんが、「$service」で当鯖に投票しました。【自動投稿】");
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
 

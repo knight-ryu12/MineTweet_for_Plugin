@@ -32,6 +32,7 @@ public class MineTweet extends JavaPlugin
 	public static final String KEYWORD_CHANNEL = "$channel";
 	public static final String KEYWORD_MESSAGE = "$message";
 	public static final String KEYWORD_ACHIEVEMENT = "$achievement";
+	public static final String KEYWORD_SERVICE = "$service";
 
     @Override
     public void onEnable()
@@ -46,8 +47,8 @@ public class MineTweet extends JavaPlugin
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
 
-	    RegistrationListener.registrationListener(instance);
 	    registerCommands();
+	    RegistrationListener.registrationListener(instance);
     }
 
 	private void registerCommands()
