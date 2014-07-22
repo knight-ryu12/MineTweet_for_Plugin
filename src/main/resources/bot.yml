@@ -1,0 +1,11 @@
+# MineTweet_for_Plugin
+# @author     ittekikun
+# @license    LGPLv3 ※Twitter4JはApache License 2.0で配布されています。
+# @copyright  Copyright ittekikun 2014
+#
+UseBot: false
+BotMessages:
+  - 長門
+  - 陸奥
+  - 電
+TweetCycle: 2000
