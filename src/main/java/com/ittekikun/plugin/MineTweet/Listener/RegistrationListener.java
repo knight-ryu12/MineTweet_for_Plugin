@@ -85,8 +85,14 @@ public class RegistrationListener
 
 		if (mtConfig.votifierReceiveTweetTweet)
 		{
-			System.out.println("testdklnklhnklblkb kbkj hjbpo;d");
-			pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
+			if (pluginmanager.isPluginEnabled("Votifier"))
+			{
+				pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
+			}
+			else
+			{
+				MineTweet.log.warning("Votifierが導入されてないので連携を無効化します。");
+			}
 		}
 	}
 }

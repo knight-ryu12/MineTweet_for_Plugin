@@ -25,7 +25,6 @@ public class VotifierReceiveEvent implements Listener
 	@EventHandler
 	public void onVotifierEvent(VotifierEvent event) throws TwitterException
 	{
-		System.out.println("testddddddddddddddddddddddddddddddddddddd");
 		Vote vote = event.getVote();
 
 		String name = vote.getUsername();
