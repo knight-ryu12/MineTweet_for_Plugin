@@ -25,6 +25,7 @@ public class VotifierReceiveEvent implements Listener
 	@EventHandler
 	public void onVotifierEvent(VotifierEvent event) throws TwitterException
 	{
+		System.out.println("testddddddddddddddddddddddddddddddddddddd");
 		Vote vote = event.getVote();
 
 		String name = vote.getUsername();
@@ -42,7 +43,7 @@ public class VotifierReceiveEvent implements Listener
 		{
 			result = result.replace(MineTweet.KEYWORD_USER, name);
 		}
-		if (result.contains(MineTweet.KEYWORD_ACHIEVEMENT) )
+		if (result.contains(MineTweet.KEYWORD_SERVICE) )
 		{
 			result = result.replace(MineTweet.KEYWORD_SERVICE, service);
 		}

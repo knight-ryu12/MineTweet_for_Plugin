@@ -85,6 +85,7 @@ public class RegistrationListener
 
 		if (mtConfig.votifierReceiveTweetTweet)
 		{
+			System.out.println("testdklnklhnklblkb kbkj hjbpo;d");
 			pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
 		}
 	}

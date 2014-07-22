@@ -26,9 +26,12 @@
 #LunaChatTweet: チャットチャンネル作成&削除をツイートするか(要LunaChat)
 #ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 #ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
-
-AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか※BETA機能
-AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
+#
+#AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか※BETA機能
+#AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
+#
+#VotifierReceiveTweetTweet: 投票サイト(Japan Minecraft Servers等)で何者かが投票した時にツイートするか※BETA機能
+#VotifierReceiveTemplate: 投票された時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$service→サービス名）
 
 ServerStartTweet: false
 ServerStopTweet: false
@@ -57,5 +60,5 @@ ChannelDeleteTemplate: チャットチャンネル「$channel」が削除され�
 AchievementAwardedTweet: false
 AchievementAwardedTemplate: $userが、「$achievement」という実績を取得しました。【自動投稿】
 
-votifierReceiveTweetTweet: false
+VotifierReceiveTweetTweet: false
 VotifierReceiveTemplate: $userさんが、「$service」で当鯖に投票しました。【自動投稿】
