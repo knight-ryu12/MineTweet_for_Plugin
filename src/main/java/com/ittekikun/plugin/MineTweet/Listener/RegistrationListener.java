@@ -88,6 +88,7 @@ public class RegistrationListener
 			if (pluginmanager.isPluginEnabled("Votifier"))
 			{
 				pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
+				MineTweet.log.info( "Votifierと連携しました。");
 			}
 			else
 			{
