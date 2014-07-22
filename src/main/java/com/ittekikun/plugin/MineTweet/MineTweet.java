@@ -20,6 +20,7 @@ public class MineTweet extends JavaPlugin
 {
 	public static MineTweet instance;
     public static Logger log;
+	private static final String prefix = "[MineTweet_for_Plugin] ";
 	public MineTweetConfig mtConfig;
 	public TwitterManager twitterManager;
 
@@ -39,7 +40,8 @@ public class MineTweet extends JavaPlugin
     {
 	    instance = this;
 
-	    log =  Logger.getLogger("Minecraft");
+	    log =  Logger.getLogger("MineTweet");
+	    log.setFilter(new LogFilter(prefix));
 
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
