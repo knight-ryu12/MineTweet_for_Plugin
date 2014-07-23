@@ -3,9 +3,17 @@
 # @license    LGPLv3 ※Twitter4JはApache License 2.0で配布されています。
 # @copyright  Copyright ittekikun 2014
 #
+#
+#UseBot: BOT機能を使用するか※BETA機能
+#BotMessageList:
+#  - ここにBOTでツイートしたいメッセージを指定します※115字以上はMineTweetの仕様でツイートできません。
+#  - 多分いくつでも書けます↓見本
+#  - 【BOT】鯖管は電ちゃんが好きです！
+#TweetCycle: 上記で指定したメッセージを何秒間隔でツイートするかを設定できます（Twitterの制限もあるので二時間間隔以上をおすすめします）7200秒→2時間
+
 UseBot: false
-BotMessages:
-  - 長門
-  - 陸奥
-  - 電
-TweetCycle: 2000
+#115
+BotMessageList:
+  - 【BOT】サーバー絶賛運営中です！
+  - ( ◠‿◠ )☛
+TweetCycle: 7200

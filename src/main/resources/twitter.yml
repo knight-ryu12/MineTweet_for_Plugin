@@ -3,6 +3,8 @@
 # @license    LGPLv3 ※Twitter4JはApache License 2.0で配布されています。
 # @copyright  Copyright ittekikun 2014
 #
+#DateFormat: ツイートの最後に挿入されるタイムスタンプのフォーマットを変更できます。ですが変更をおすすめしませんのでフォーマットの詳細は調べてください。
+#
 #ServerStartTweet: サーバーを起動した時にツイートするか ※仕様上Reloadコマンド実行時にもツイートされてしまいます
 #ServerStopTweet: サーバーを停止した時にツイートするか ※仕様上Reloadコマンド実行時にもツイートされてしまいます
 #
@@ -32,6 +34,8 @@
 #
 #VotifierReceiveTweetTweet: 投票サイト(Japan Minecraft Servers等)で何者かが投票した時にツイートするか※BETA機能
 #VotifierReceiveTemplate: 投票された時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$service→サービス名）
+
+DateFormat: EEE MMM d HH:mm:ss z
 
 ServerStartTweet: false
 ServerStopTweet: false

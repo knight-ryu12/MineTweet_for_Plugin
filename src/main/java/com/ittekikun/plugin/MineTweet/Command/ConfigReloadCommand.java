@@ -4,6 +4,7 @@ import com.ittekikun.plugin.MineTweet.Data.Permission;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
 import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.event.HandlerList;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class ConfigReloadCommand extends BaseCommand
 {
@@ -21,6 +22,8 @@ public class ConfigReloadCommand extends BaseCommand
 		try
 		{
 			plugin.mtConfig.loadConfig();
+			plugin.botManager.taskCancel();
+			plugin.botManager.botSetup();
 			HandlerList.unregisterAll(plugin);
 			RegistrationListener.registrationListener(plugin);
 		}

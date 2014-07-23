@@ -6,6 +6,7 @@ import com.ittekikun.plugin.MineTweet.Command.HelpCommand;
 import com.ittekikun.plugin.MineTweet.Command.TweetCommand;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
+import com.ittekikun.plugin.MineTweet.Twitter.BotManager;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,6 +24,7 @@ public class MineTweet extends JavaPlugin
 	private static final String prefix = "[MineTweet_for_Plugin] ";
 	public MineTweetConfig mtConfig;
 	public TwitterManager twitterManager;
+	public BotManager botManager;
 
 	private List<BaseCommand> commands = new ArrayList<BaseCommand>();
 
@@ -48,6 +50,9 @@ public class MineTweet extends JavaPlugin
 
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
+
+	    botManager = new BotManager(this);
+	    botManager.botSetup();
 
 	    registerCommands();
 	    RegistrationListener.registrationListener(instance);

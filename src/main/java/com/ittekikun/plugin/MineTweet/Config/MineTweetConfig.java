@@ -11,6 +11,7 @@ public class MineTweetConfig
 
 	public ConfigAccessor system;
 	public ConfigAccessor twitter;
+	public ConfigAccessor bot;
 
 	public String consumerKey;
 	public String consumerSecret;
@@ -21,6 +22,12 @@ public class MineTweetConfig
 
 	public String dateformat;
 
+	public Boolean serverStartTweet;
+	public Boolean serverStopTweet;
+
+	public String start_message_temp;
+	public String stop_message_temp;
+
 	public String join_message_temp;
 	public String quit_message_temp;
 
@@ -30,16 +37,16 @@ public class MineTweetConfig
 	public String kick_message_temp;
 	public String ban_message_temp;
 
-	public String start_message_temp;
-	public String stop_message_temp;
-
 	public String cmd_message_temp;
 
 	public Boolean versionCheck;
+
 	public Boolean playerJoinTweet;
 	public Boolean playerQuitTweet;
+
 	public int mcBansBanTweet;
 	public Boolean mcBansKickTweet;
+
 	public Boolean lunaChatTweet;
 
 	public Boolean achievementAwardedTweet;
@@ -48,10 +55,11 @@ public class MineTweetConfig
 	public Boolean votifierReceiveTweetTweet;
 	public String votifier_message_temp;
 
-	public Boolean serverStartTweet;
-	public Boolean serverStopTweet;
+	public Boolean useBot;
+	public List<String> botMessageList;
+	public int TweetCycle;
 
-	public List<String> UserList;
+	//public List<String> UserList;
 
 	public Boolean debugMode;
 
@@ -64,9 +72,11 @@ public class MineTweetConfig
 	{
 		system = new ConfigAccessor(plugin , "main.yml");
 		twitter = new ConfigAccessor(plugin ,"twitter.yml");
+		bot = new ConfigAccessor(plugin ,"bot.yml");
 
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
+		bot.saveDefaultConfig();
 
 		this.GUICertify = system.getConfig().getBoolean("GUICertify",true);
 		this.consumerKey = system.getConfig().getString("consumerKey","xxxxxxxxxx");
@@ -107,6 +117,10 @@ public class MineTweetConfig
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
 
-		this.UserList = twitter.getConfig().getStringList("UserList");
+		this.useBot = bot.getConfig().getBoolean("UseBot");
+		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
+		this.TweetCycle = bot.getConfig().getInt("TweetCycle");
+
+		//this.UserList = twitter.getConfig().getStringList("UserList");
 	}
 }

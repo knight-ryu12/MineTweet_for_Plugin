@@ -70,7 +70,6 @@ public class TwitterManager
 			{
 				status = true;
 
-
 				twitter.setOAuthAccessToken(accesstoken);
 			}
 		}
@@ -80,7 +79,6 @@ public class TwitterManager
 			status = true;
 
 			ConfigurationBuilder conf = new ConfigurationBuilder();
-
 			conf.setOAuthConsumerKey(mtConfig.consumerKey);
 			conf.setOAuthConsumerSecret(mtConfig.consumerSecret);
 			conf.setOAuthAccessToken(mtConfig.accessToken);
@@ -103,7 +101,7 @@ public class TwitterManager
 	public void tweet(String tweet,File media) throws TwitterException
 	{
 		String time = Utility.timeGetter(mtConfig.dateformat);
-		final StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
+		StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
 		statusUpdate.media(media);
 
 		if(status)
