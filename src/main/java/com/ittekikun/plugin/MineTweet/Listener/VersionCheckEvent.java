@@ -34,9 +34,8 @@ public class VersionCheckEvent implements Listener
 			//いつかUTF8に対応したいなって（動作確認済み）
 			//↓
 			//1.4より移行
-			String url = "MineTweet_for_Plugin_UTF-8";
-			
-			//String url = "MineTweet_for_Plugin";
+			String url = "MineTweet_for_Plugin";
+
 			Thread updateCheck = new Thread(new UpdateCheck(player,url,NowVer));
 			updateCheck.start();
 		}

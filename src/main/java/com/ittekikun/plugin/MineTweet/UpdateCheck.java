@@ -21,7 +21,7 @@ public class UpdateCheck implements Runnable
 
 	public void run()
 	{
-		nurl = "http://verche.homoxo.net/" + url + "/lastver.txt";
+		nurl = "http://verche.ittekikun.com/" + url + "/lastver.txt";
 		lastVer = Utility.getHttpServerText(nurl);
 		Double ver = Double.valueOf(lastVer[1]);
 		String name = lastVer[0];

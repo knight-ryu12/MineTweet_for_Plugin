@@ -42,7 +42,7 @@ public class MineTweet extends JavaPlugin
     {
 	    instance = this;
 
-	    log =  Logger.getLogger("MineTweet");
+	    log = Logger.getLogger("MineTweet");
 	    log.setFilter(new LogFilter(prefix));
 
 	    mtConfig = new MineTweetConfig(this);

@@ -96,6 +96,8 @@ public class Utility
 		}
 		catch (IOException e)
 		{
+			log.severe("何らかの理由でバージョンアップ確認サーバーにアクセスできませんでした。");
+			log.severe("お手数ですが一度UpdateCheckをfalseにする事をおすすめします。");
 			e.printStackTrace();
 		}
 		return null;
