@@ -3,8 +3,6 @@ package com.ittekikun.plugin.MineTweet.Listener;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.vexsoftware.votifier.model.Vote;
-import com.vexsoftware.votifier.model.VotifierEvent;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -12,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import twitter4j.TwitterException;
 
+//例のアレ
 public class ZyariEvent implements Listener
 {
 	MineTweet plugin;
