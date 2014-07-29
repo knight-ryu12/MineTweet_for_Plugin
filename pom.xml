@@ -5,7 +5,7 @@
     <groupId>com.ittekikun.plugin</groupId>
     <artifactId>MineTweet</artifactId>
     <packaging>jar</packaging>
-    <version>1.4</version>
+    <version>1.41</version>
     <url>http://goo.gl/ja2uHU</url>
 
     <name>MineTweet_for_Plugin</name>
