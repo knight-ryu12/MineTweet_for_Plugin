@@ -16,7 +16,7 @@ public class TweetCommand extends BaseCommand
 		bePlayer = false;
 		name = "tw";
 		argLength = 1;
-		usage = "(text)";
+		usage = "(text) <- tweet";
 	}
 
 	@Override

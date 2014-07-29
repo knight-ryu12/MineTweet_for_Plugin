@@ -55,6 +55,8 @@ public class MineTweetConfig
 	public Boolean votifierReceiveTweetTweet;
 	public String votifier_message_temp;
 
+	public Boolean zyari;//例のアレ;
+
 	public Boolean useBot;
 	public List<String> botMessageList;
 	public int TweetCycle;
@@ -116,6 +118,8 @@ public class MineTweetConfig
 		this.votifier_message_temp = twitter.getConfig().getString("VotifierReceiveTemplate", "$userさんが、「$service」で当鯖に投票しました。【自動投稿】");
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
+
+		this.zyari = twitter.getConfig().getBoolean("Zyari",false);//例のアレ
 
 		this.useBot = bot.getConfig().getBoolean("UseBot");
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");

@@ -95,5 +95,10 @@ public class RegistrationListener
 				MineTweet.log.warning("Votifierが導入されてないので連携を無効化します。");
 			}
 		}
+
+		if (mtConfig.zyari)
+		{
+			pluginmanager.registerEvents(new ZyariEvent(plugin), plugin);
+		}
 	}
 }

@@ -37,7 +37,10 @@ public class BotManager
 
 	public void taskCancel()
 	{
-		bukkitScheduler.cancelTasks(plugin);
+		if(mtConfig.useBot)
+		{
+			bukkitScheduler.cancelTasks(plugin);
+		}
 	}
 
 	public int convertSecondToTick(int second)
