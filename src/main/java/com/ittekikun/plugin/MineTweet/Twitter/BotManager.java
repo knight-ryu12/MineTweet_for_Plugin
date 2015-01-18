@@ -2,21 +2,22 @@ package com.ittekikun.plugin.MineTweet.Twitter;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
+import twitter4j.TwitterException;
 
 public class BotManager
 {
 	public MineTweet plugin;
 	public TwitterManager twitterManager;
 	public MineTweetConfig mtConfig;
+	public List<String> botMessageList;
 	public BukkitScheduler bukkitScheduler;
 
 	public BotManager(MineTweet plugin)
@@ -28,24 +29,26 @@ public class BotManager
 
 	public void botSetup()
 	{
-		if(mtConfig.useBot)
+		if (this.mtConfig.useBot)
 		{
-			bukkitScheduler = Bukkit.getServer().getScheduler();
-			bukkitScheduler.runTaskTimer(plugin, new BotTweetTask(mtConfig.botMessageList), 0, convertSecondToTick(mtConfig.TweetCycle));
+			this.bukkitScheduler = Bukkit.getServer().getScheduler();
+
+			this.botMessageList = new ArrayList(this.mtConfig.botMessageList);
+			this.bukkitScheduler.runTaskTimer(this.plugin, new BotTweetTask(this.botMessageList), 0L, convertSecondToTick(this.mtConfig.TweetCycle));
 		}
 	}
 
 	public void taskCancel()
 	{
-		if(mtConfig.useBot)
+		if (this.mtConfig.useBot)
 		{
-			bukkitScheduler.cancelTasks(plugin);
+			this.bukkitScheduler.cancelTasks(this.plugin);
 		}
 	}
 
 	public int convertSecondToTick(int second)
 	{
-		return second*20;
+		return second * 20;
 	}
 
 	public class BotTweetTask extends BukkitRunnable
@@ -54,28 +57,23 @@ public class BotManager
 
 		public BotTweetTask(List<String> botMessageList)
 		{
-			this.botMessageList = new ArrayList<String>(botMessageList);
+			this.botMessageList = this.botMessageList;
 		}
 
-		@Override
 		public void run()
 		{
-			Collections.shuffle(botMessageList);
-
-			if(botMessageList.get(0).length() <= 115)
-			{
+			Collections.rotate(this.botMessageList, 1);
+			if (((String)this.botMessageList.get(0)).length() <= 115) {
 				try
 				{
-					twitterManager.tweet(botMessageList.get(0));
+					BotManager.this.twitterManager.tweet((String)this.botMessageList.get(0));
 				}
-				catch(TwitterException e)
+				catch (TwitterException e)
 				{
 					e.printStackTrace();
 				}
-			}
-			else
-			{
-				MineTweet.log.severe("[BOT]次のメッセージは116字以上の為ツイートできません。→" + mtConfig.botMessageList.get(0));
+			} else {
+				MineTweet.log.severe("[BOT]次のメッセージは116字以上の為ツイートできません。→" + (String)BotManager.this.mtConfig.botMessageList.get(0));
 			}
 		}
 	}

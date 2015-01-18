@@ -21,7 +21,7 @@ public class MineTweet extends JavaPlugin
 {
 	public static MineTweet instance;
     public static Logger log;
-	private static final String prefix = "[MineTweet_for_Plugin] ";
+	private static final String prefix = "[MineTweet] ";
 	public MineTweetConfig mtConfig;
 	public TwitterManager twitterManager;
 	public BotManager botManager;
@@ -37,9 +37,16 @@ public class MineTweet extends JavaPlugin
 	public static final String KEYWORD_ACHIEVEMENT = "$achievement";
 	public static final String KEYWORD_SERVICE = "$service";
 
+	public static boolean isV18;
+
     @Override
     public void onEnable()
     {
+		String ver = getServer().getBukkitVersion();
+		isV18 = (ver.startsWith("1.8-R") || ver.startsWith("1.8.1-R"));
+
+		System.out.println(isV18);
+
 	    instance = this;
 
 	    log = Logger.getLogger("MineTweet");
@@ -51,8 +58,8 @@ public class MineTweet extends JavaPlugin
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
 
-	    botManager = new BotManager(this);
-	    botManager.botSetup();
+	    //botManager = new BotManager(this);
+	    //botManager.botSetup();
 
 	    registerCommands();
 	    RegistrationListener.registrationListener(instance);
