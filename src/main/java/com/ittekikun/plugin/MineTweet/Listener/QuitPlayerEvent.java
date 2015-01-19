@@ -19,6 +19,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 public class QuitPlayerEvent implements Listener
 {
@@ -43,7 +44,19 @@ public class QuitPlayerEvent implements Listener
 			String name = player.getName();
 
 			Collection member = plugin.getServer().getOnlinePlayers();
-			String number = Integer.toString((member.size() - 1));
+			String number;
+
+			if(plugin.isV18)
+			{
+				Collection players = plugin.getServer().getOnlinePlayers();
+				number = Integer.toString((players.size() -1));
+			}
+			else
+			{
+				//1.7の時はちゃうんや
+				Player[] players = plugin.getServer().getOnlinePlayers();
+				number = Integer.toString((players.length -1));
+			}
 
 			String message = replaceKeywords(mtConfig.quit_message_temp, name, number);
 
@@ -65,10 +78,14 @@ public class QuitPlayerEvent implements Listener
 				{
 					try
 					{
-						generationPlayerImage(name, "LEFT THE GAME!");
+						String uuid = UUID.randomUUID().toString();
+						File tweetImage = new File(plugin.getDataFolder(), uuid + ".png");
+
+						generationPlayerImage(name, "LEFT THE GAME!", tweetImage);
 
 						String message = replaceKeywords(mtConfig.quit_message_temp, name, number);
-						twitterManager.tweet(message, (new File(plugin.getDataFolder(), "temp.png")));
+						twitterManager.tweet(message, tweetImage);
+						tweetImage.delete();
 					}
 					catch(TwitterException e)
 					{
@@ -93,7 +110,7 @@ public class QuitPlayerEvent implements Listener
         return result;
     }
 
-	public static void generationPlayerImage(String playerName,String message) throws TwitterException
+	public static void generationPlayerImage(String playerName,String message,File tweetImage) throws TwitterException
 	{
 		BufferedImage base = null;
 		BufferedImage head = null;
@@ -151,7 +168,7 @@ public class QuitPlayerEvent implements Listener
 		//	ファイル保存
 		try
 		{
-			ImageIO.write(base, "png", new File(MineTweet.instance.getDataFolder(), "temp.png"));
+			ImageIO.write(base, "png", tweetImage);
 		}
 		catch(Exception e)
 		{

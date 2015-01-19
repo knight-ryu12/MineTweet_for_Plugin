@@ -20,6 +20,7 @@ import java.awt.image.PackedColorModel;
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
+import java.util.UUID;
 
 public class JoinPlayerEvent implements Listener
 {
@@ -41,17 +42,18 @@ public class JoinPlayerEvent implements Listener
 		{
 			Player player = event.getPlayer();
 			String name = player.getName();
+			String number;
 
 			if(plugin.isV18)
 			{
-				Collection member = plugin.getServer().getOnlinePlayers();
-				String number = Integer.toString((member.size()));
+				Collection players = plugin.getServer().getOnlinePlayers();
+				number = Integer.toString((players.size()));
 			}
 			else
 			{
 				//1.7の時はちゃうんや
-				Collection member = plugin.getServer().getOnlinePlayers();
-				String number = Integer.toString((member.size()));
+				Player[] players = plugin.getServer().getOnlinePlayers();
+				number = Integer.toString((players.length));
 			}
 
 			String Message = replaceKeywords(mtConfig.join_message_temp, name, number);
@@ -66,6 +68,7 @@ public class JoinPlayerEvent implements Listener
 			Collection member = plugin.getServer().getOnlinePlayers();
 			final String number = Integer.toString((member.size()));
 
+			//画像生成でラグが起きるので別スレッド
 			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable()
 			{
 				@Override
@@ -73,10 +76,14 @@ public class JoinPlayerEvent implements Listener
 				{
 					try
 					{
-						generationPlayerImage(name, "JOINED THE GAME!");
+						String uuid = UUID.randomUUID().toString();
+						File tweetImage = new File(plugin.getDataFolder(), uuid + ".png");
 
-						String message = replaceKeywords(mtConfig.join_message_temp, name, number);
-						twitterManager.tweet(message,(new File(plugin.getDataFolder(), "temp.png")));
+						generationPlayerImage(name, "JOIN THE GAME!", tweetImage);
+
+						String message = replaceKeywords(mtConfig.quit_message_temp, name, number);
+						twitterManager.tweet(message, tweetImage);
+						tweetImage.delete();
 					}
 					catch(TwitterException e)
 					{
@@ -90,18 +97,18 @@ public class JoinPlayerEvent implements Listener
 	private String replaceKeywords(String source,String name, String number)
 	{
 		String result = source;
-        if ( result.contains(MineTweet.KEYWORD_USER) )
-        {
-            result = result.replace(MineTweet.KEYWORD_USER, name);
-        }
-        if ( result.contains(MineTweet.KEYWORD_NUMBER) )
-        {
-            result = result.replace(MineTweet.KEYWORD_NUMBER, number);
-        }
-        return result;
-    }
+		if ( result.contains(MineTweet.KEYWORD_USER) )
+		{
+			result = result.replace(MineTweet.KEYWORD_USER, name);
+		}
+		if ( result.contains(MineTweet.KEYWORD_NUMBER) )
+		{
+			result = result.replace(MineTweet.KEYWORD_NUMBER, number);
+		}
+		return result;
+	}
 
-	public static void generationPlayerImage(String playerName,String message) throws TwitterException
+	public static void generationPlayerImage(String playerName,String message,File tweetImage) throws TwitterException
 	{
 		BufferedImage base = null;
 		BufferedImage head = null;
@@ -159,7 +166,7 @@ public class JoinPlayerEvent implements Listener
 		//	ファイル保存
 		try
 		{
-			ImageIO.write(base, "png", new File(MineTweet.instance.getDataFolder(), "temp.png"));
+			ImageIO.write(base, "png", tweetImage);
 		}
 		catch(Exception e)
 		{

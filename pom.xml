@@ -66,6 +66,10 @@
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <repository>
             <id>twitter4j.org</id>
             <name>twitter4j.org Repository</name>
             <url>http://twitter4j.org/maven2</url>
