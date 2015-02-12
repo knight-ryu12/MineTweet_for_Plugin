@@ -21,4 +21,4 @@ accessTokenSecret: xxxxxxxxxx
 
 VersionCheck: true
 
-Debugmode: false
+DebugMode: false
