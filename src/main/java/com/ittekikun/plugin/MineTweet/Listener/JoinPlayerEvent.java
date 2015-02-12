@@ -75,7 +75,7 @@ public class JoinPlayerEvent implements Listener
 						twitterManager.tweet(message, tweetImage);
 						tweetImage.delete();
 					}
-					catch (TwitterException e)
+					catch (Exception e)
 					{
 						e.printStackTrace();
 					}

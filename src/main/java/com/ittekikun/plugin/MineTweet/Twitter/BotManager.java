@@ -57,16 +57,17 @@ public class BotManager
 
 		public BotTweetTask(List<String> botMessageList)
 		{
-			this.botMessageList = this.botMessageList;
+			this.botMessageList = botMessageList;
 		}
 
 		public void run()
 		{
 			Collections.rotate(this.botMessageList, 1);
-			if (((String)this.botMessageList.get(0)).length() <= 115) {
+
+			if (this.botMessageList.get(0).length() <= 115) {
 				try
 				{
-					BotManager.this.twitterManager.tweet((String)this.botMessageList.get(0));
+					BotManager.this.twitterManager.tweet(this.botMessageList.get(0));
 				}
 				catch (TwitterException e)
 				{
