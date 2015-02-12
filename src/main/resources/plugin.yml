@@ -1,6 +1,6 @@
 name: MineTweet_for_Plugin
 main: com.ittekikun.plugin.MineTweet.MineTweet
-version: 1.41
+version: 1.42
 description: Twitter on BUKKIT Server.
 authors: [ittekikun]
 website: http://goo.gl/ja2uHU

@@ -2,6 +2,7 @@ package com.ittekikun.plugin.MineTweet.Command;
 
 import com.ittekikun.plugin.MineTweet.Data.Permission;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
+import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -32,7 +33,7 @@ public class ConfigReloadCommand extends BaseCommand
 			ex.printStackTrace();
 			return;
 		}
-		Utility.message(sender, "&aConfigをリロードしました！");
+		MineTweet.log.info("&aConfigをリロードしました！");
 	}
 
 	@Override
