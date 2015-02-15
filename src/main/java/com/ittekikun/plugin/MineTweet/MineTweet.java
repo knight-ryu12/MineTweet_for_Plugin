@@ -10,6 +10,7 @@ import com.ittekikun.plugin.MineTweet.Twitter.BotManager;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -21,7 +22,9 @@ public class MineTweet extends JavaPlugin
 {
 	public static MineTweet instance;
     public static Logger log;
-	private static final String prefix = "[MineTweet] ";
+	public static final String prefix = "[MineTweet] ";
+	public static PluginManager pluginManager;
+	public static boolean forceDisableMode;
 	public MineTweetConfig mtConfig;
 	public TwitterManager twitterManager;
 	public BotManager botManager;
@@ -45,15 +48,36 @@ public class MineTweet extends JavaPlugin
 		String ver = getServer().getBukkitVersion();
 		isV18 = (ver.startsWith("1.8-R") || ver.startsWith("1.8.1-R"));
 
-		System.out.println(isV18);
-
 	    instance = this;
+		pluginManager = instance.getServer().getPluginManager();
 
 	    log = Logger.getLogger("MineTweet");
 	    log.setFilter(new LogFilter(prefix));
 
+		if(!(Double.parseDouble(System.getProperty("java.specification.version")) >= 1.7))
+		{
+			//JAVA6以前の環境では動きません
+			log.severe("JAVA7以上がインストールされていません。");
+			log.severe("プラグインを無効化します。");
+			forceDisableMode = true;
+			pluginManager.disablePlugin(this);
+
+			return;
+		}
+
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
+
+		//後からクラスパスに追加しようと模索しているが失敗する
+		//理由不明
+		Utility.copyFolderFromJar(getPluginJarFile(), new File(instance.getDataFolder(), "lib"), "lib");
+		ArrayList<String> fileList = new ArrayList<String>();
+		fileList.add("twitter4j-core-4.0.3-SNAPSHOT.jar");
+		fileList.add("twitter4j-stream-4.0.3-SNAPSHOT.jar");
+		fileList.add("twitter4j-async-4.0.3-SNAPSHOT.jar");
+
+		LibraryLoader TWITTER4J = new LibraryLoader(this, fileList, true);
+		TWITTER4J.load();
 
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
@@ -63,7 +87,50 @@ public class MineTweet extends JavaPlugin
 
 	    registerCommands();
 	    RegistrationListener.registrationListener(instance);
+
+		serverStartTweet();
     }
+
+	@Override
+	public void onDisable()
+	{
+		if(forceDisableMode)
+		{
+			return;
+		}
+
+		serverStopTweet();
+	}
+
+	private void serverStartTweet()
+	{
+		if (mtConfig.serverStartTweet)
+		{
+			try
+			{
+				twitterManager.tweet(mtConfig.start_message_temp);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void serverStopTweet()
+	{
+		if (mtConfig.serverStopTweet)
+		{
+			try
+			{
+				twitterManager.tweet(mtConfig.stop_message_temp);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 
 	private void registerCommands()
 	{
@@ -72,6 +139,11 @@ public class MineTweet extends JavaPlugin
 		commands.add(new ConfigReloadCommand());
 	}
 
+	public ClassLoader getThisClassLoader()
+	{
+		return this.getClassLoader();
+
+	}
 
 	public File getPluginJarFile()
 	{

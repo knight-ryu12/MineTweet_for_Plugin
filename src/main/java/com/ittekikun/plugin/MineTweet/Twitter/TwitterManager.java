@@ -91,22 +91,30 @@ public class TwitterManager
 	public void tweet(String tweet) throws TwitterException
 	{
 		String time = Utility.timeGetter(mtConfig.dateformat);
+		StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
 
-		if(status)
-		{
-			twitter.updateStatus(tweet + "\n" + time);
-		}
+		updateStatus(statusUpdate);
 	}
 
-	public void tweet(String tweet,File media) throws TwitterException
+	public void tweet(String tweet, File media) throws TwitterException
 	{
 		String time = Utility.timeGetter(mtConfig.dateformat);
 		StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
 		statusUpdate.media(media);
 
+		updateStatus(statusUpdate);
+	}
+
+	private void updateStatus(StatusUpdate statusUpdate) throws TwitterException
+	{
 		if(status)
 		{
 			twitter.updateStatus(statusUpdate);
+		}
+		else
+		{
+			MineTweet.log.severe("現在ツイートができない状況の為、下記のツイートは行われませんでした。");
+			MineTweet.log.severe(statusUpdate.getStatus());
 		}
 	}
 

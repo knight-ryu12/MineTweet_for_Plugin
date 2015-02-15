@@ -29,8 +29,8 @@ public class UpdateCheck implements Runnable
 
 		if(ver > nowVer)
 		{
-			String Message = replaceKeywords(temp, ver, nowVer,name,reason);
-			player.sendMessage(Message);
+			String message = replaceKeywords(temp, ver, nowVer,name,reason);
+			Utility.message(player, message);
 		}
 	}
 

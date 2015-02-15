@@ -4,6 +4,7 @@ import com.ittekikun.plugin.MineTweet.Data.Permission;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Utility;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -30,10 +31,27 @@ public class ConfigReloadCommand extends BaseCommand
 		}
 		catch (Exception ex)
 		{
+			if(sender instanceof Player)
+			{
+				Utility.message(sender, "configファイルのリロードに失敗しました。");
+			}
+			else
+			{
+				MineTweet.log.severe("configファイルのリロードに失敗しました。");
+			}
+
 			ex.printStackTrace();
 			return;
 		}
-		MineTweet.log.info("&aConfigをリロードしました！");
+
+		if(sender instanceof Player)
+		{
+			Utility.message(sender, "全てのconfigファイルをリロードしました。");
+		}
+		else
+		{
+			MineTweet.log.info("全てのconfigファイルをリロードしました。");
+		}
 	}
 
 	@Override
