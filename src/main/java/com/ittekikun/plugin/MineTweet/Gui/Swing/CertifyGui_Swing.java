@@ -42,8 +42,8 @@ public class CertifyGui_Swing
 		mainFrame.setLocationRelativeTo(null);
 
         //×ボタンで閉じれなくなる(閉じると本体も強制終了してしまう為)
+        //本体が強制終了の件はコード上の問題であった
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //なんかこれないと表示されない
         mainFrame.setVisible(true);
 
         button1.addActionListener(new ActionAdapter());
@@ -90,14 +90,13 @@ public class CertifyGui_Swing
         private AccessToken register(Twitter twitter, String pin, RequestToken  requesttoken, TwitterManager twitterManager)
         {
             AccessToken accessToken = null;
-            Boolean IsInt = Utility.isInteger(pin);
             try
             {
                 if(requesttoken != null)
                 {
                     if(pin.length() == 7)
                     {
-                        if(IsInt)
+                        if(Utility.isInteger(pin))
                         {
                             accessToken = twitter.getOAuthAccessToken(requesttoken, pin);
                             twitterManager.storeAccessToken(accessToken);
@@ -123,11 +122,11 @@ public class CertifyGui_Swing
             {
                 if(401 == te.getStatusCode())
                 {
-                    JOptionPane.showMessageDialog(null, "アクセストークンを取得できませんでした。\r\nもしくは既に取得済みか、\r\n入力されているPINコードが間違っています。\r\nもう一度WEBで認証してください。");
+                    JOptionPane.showMessageDialog(null, "アクセストークンを取得できませんでした。\r\nもしくは既に取得済みか、\r\n入力されているPINコードが間違っています。\r\nサーバーを再起動し、もう一度WEBで認証してください。");
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "例外が発生しました。\r\n恐らくPINコードが正しく入力されていません。\r\nもう一度WEBで認証してください。");
+                    JOptionPane.showMessageDialog(null, "例外が発生しました。\r\n恐らくPINコードが正しく入力されていません。\r\nサーバーを再起動し、もう一度WEBで認証してください。");
                     te.printStackTrace();
                 }
             }

@@ -23,21 +23,21 @@ public class ConfigReloadCommand extends BaseCommand
 	{
 		try
 		{
-			plugin.mtConfig.loadConfig();
-			plugin.botManager.taskCancel();
-			plugin.botManager.botSetup();
 			HandlerList.unregisterAll(plugin);
+			plugin.botManager.taskCancel();
+			plugin.mtConfig.loadConfig();
+			plugin.botManager.botSetup();
 			RegistrationListener.registrationListener(plugin);
 		}
 		catch (Exception ex)
 		{
 			if(sender instanceof Player)
 			{
-				Utility.message(sender, "configファイルのリロードに失敗しました。");
+				Utility.message(sender, "全てのconfigファイルのリロードに失敗しました。");
 			}
 			else
 			{
-				MineTweet.log.severe("configファイルのリロードに失敗しました。");
+				MineTweet.log.severe("全てconfigファイルのリロードに失敗しました。");
 			}
 
 			ex.printStackTrace();

@@ -59,7 +59,7 @@ public class MineTweetConfig
 
 	public Boolean useBot;
 	public List<String> botMessageList;
-	public int TweetCycle;
+	public int tweetCycle;
 
 	//public List<String> UserList;
 
@@ -123,7 +123,7 @@ public class MineTweetConfig
 
 		this.useBot = bot.getConfig().getBoolean("UseBot");
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
-		this.TweetCycle = bot.getConfig().getInt("TweetCycle");
+		this.tweetCycle = bot.getConfig().getInt("TweetCycle");
 
 		//this.UserList = twitter.getConfig().getStringList("UserList");
 	}

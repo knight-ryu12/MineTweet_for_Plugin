@@ -29,22 +29,22 @@ public class Utility
 	 * @param par2 どこの配列から繋げたいか（int型）
 	 * @author ittekikun
 	 */
-	public static String arrayUnion(String[] par1, int par2)
+	public static String JoinArray(String[] par1, int par2)
 	{
-		StringBuilder sb = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 
 		for (int a = par2; a < par1.length; ++a)
 		{
 			if (a > par2)
 			{
-				sb.append(" ");
+				stringBuilder.append(" ");
 			}
 
 			String s = par1[a];
 
-			sb.append(s);
+			stringBuilder.append(s);
 		}
-		return sb.toString();
+		return stringBuilder.toString();
 	}
 
 	/**
@@ -86,6 +86,7 @@ public class Utility
 
 			String line = null;
 			int l = 0;
+			//これスマートじゃないので修正予定
 			String[] strarray = new String[1000];
 			while ((line = buf.readLine()) != null)
 			{
@@ -115,6 +116,8 @@ public class Utility
 	/**
 	 * jarファイルの中に格納されているテキストファイルを、jarファイルの外にコピーするメソッド<br/>
 	 * WindowsだとS-JISで、MacintoshやLinuxだとUTF-8で保存されます。
+	 *
+	 * @author https://github.com/ucchyocean/
 	 *
 	 * @param jarFile        jarファイル
 	 * @param targetFile     コピー先
@@ -226,6 +229,8 @@ public class Utility
 	/**
 	 * jarファイルの中に格納されているフォルダを、中のファイルごとまとめてjarファイルの外にコピーするメソッド<br/>
 	 * テキストファイルは、WindowsだとS-JISで、MacintoshやLinuxだとUTF-8で保存されます。
+	 *
+	 * @author https://github.com/ucchyocean/
 	 *
 	 * @param jarFile        jarファイル
 	 * @param targetFilePath コピー先のフォルダ
@@ -339,10 +344,12 @@ public class Utility
 					}
 				}
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			if (jar != null)
 			{
@@ -358,10 +365,11 @@ public class Utility
 		}
 	}
 
-
 	/**
 	 * 渡された文字列が数字(Integer)か調べる
 	 * 調べ方は雑
+	 *
+	 * TODO 正直これ要らない気がしてきた
 	 *
 	 * @param num String
 	 * @return 見ての通り
@@ -450,7 +458,7 @@ public class Utility
 
 	/**
 	 * @return 接続中の全てのプレイヤー
-	 * @author https://github.com/ucchyocean/ColorTeaming/blob/master/src/main/java/com/github/ucchyocean/ct/Utility.java
+	 * @author https://github.com/ucchyocean/
 	 * 現在接続中のプレイヤーを全て取得する
 	 */
 	@SuppressWarnings("unchecked")
@@ -506,7 +514,8 @@ public class Utility
 			name = new BufferedImage(400, 100, BufferedImage.TYPE_INT_BGR);
 
 			mes = new BufferedImage(400, 100, BufferedImage.TYPE_INT_BGR);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -549,7 +558,8 @@ public class Utility
 		try
 		{
 			ImageIO.write(base, "png", tweetImage);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

@@ -22,47 +22,45 @@ public class TweetCommand extends BaseCommand
 	@Override
 	public void execute() throws CommandException
 	{
-		if(TwitterManager.status)
+		String[] array = args.toArray(new String[0]);
+		String source = Utility.JoinArray(array, 0);
+
+		if(sender instanceof Player)
 		{
-			String[] array = (String[])args.toArray(new String[0]);
-			String mes = Utility.arrayUnion(array, 0);
+			String message = replaceKeywords(mtConfig.cmd_message_temp, player.getName(), source);
 
-			if(sender instanceof Player)
+			//今はツイートができなかったらエラーを起こさないようにしてるけど
+			//色々と厄介だし仕様変更予定
+			try
 			{
-				String name = player.getName();
-
-				String Message = replaceKeywords(mtConfig.cmd_message_temp, name,mes);
-
-				try
-				{
-					twitterManager.tweet(Message);
-				}
-				catch(TwitterException e)
-				{
-					e.printStackTrace();
-				}
-				Utility.message(sender, "&bツイートに成功しました。");
-				player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1);
+				twitterManager.tweet(message);
 			}
-			else
+			catch(TwitterException e)
 			{
-				String Message = replaceKeywords(mtConfig.cmd_message_temp, "コンソール",mes);
-
-				try
-				{
-					twitterManager.tweet(Message);
-				}
-				catch(TwitterException e)
-				{
-					e.printStackTrace();
-				}
-
-				Utility.message(sender, "&bツイートに成功しました。");
+				Utility.message(sender, "ツイートに失敗しました。");
+				e.printStackTrace();
+				return;
 			}
+			Utility.message(sender, "ツイートに成功しました。");
+			player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1);
 		}
 		else
 		{
-			Utility.message(sender, "&cまだ認証を行っていないのでツイート出来ません！");
+			//TODO ここのコンソールを変更可能にする
+			String message = replaceKeywords(mtConfig.cmd_message_temp, "コンソール", source);
+
+			try
+			{
+				twitterManager.tweet(message);
+			}
+			catch(TwitterException e)
+			{
+				e.printStackTrace();
+				MineTweet.log.info("&bツイートに失敗しました。");
+				return;
+			}
+
+			MineTweet.log.info("&bツイートに成功しました。");
 		}
 	}
 

@@ -115,6 +115,7 @@ public class TwitterManager
 		{
 			MineTweet.log.severe("現在ツイートができない状況の為、下記のツイートは行われませんでした。");
 			MineTweet.log.severe(statusUpdate.getStatus());
+			return;
 		}
 	}
 

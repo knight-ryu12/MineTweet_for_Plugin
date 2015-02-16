@@ -34,7 +34,7 @@ public class BotManager
 			this.bukkitScheduler = Bukkit.getServer().getScheduler();
 
 			this.botMessageList = new ArrayList(this.mtConfig.botMessageList);
-			this.bukkitScheduler.runTaskTimer(this.plugin, new BotTweetTask(this.botMessageList), 0L, convertSecondToTick(this.mtConfig.TweetCycle));
+			this.bukkitScheduler.runTaskTimer(this.plugin, new BotTweetTask(this.botMessageList), 0L, convertSecondToTick(this.mtConfig.tweetCycle));
 		}
 	}
 
@@ -42,16 +42,17 @@ public class BotManager
 	{
 		if (this.mtConfig.useBot)
 		{
-			this.bukkitScheduler.cancelTasks(this.plugin);
+			bukkitScheduler.cancelTasks(this.plugin);
 		}
 	}
 
+	//簡単だけど分かりやすくするために
 	public int convertSecondToTick(int second)
 	{
 		return second * 20;
 	}
 
-	public class BotTweetTask extends BukkitRunnable
+	public class BotTweetTask implements Runnable
 	{
 		public List<String> botMessageList;
 
@@ -64,17 +65,24 @@ public class BotManager
 		{
 			Collections.rotate(this.botMessageList, 1);
 
-			if (this.botMessageList.get(0).length() <= 115) {
+			if (this.botMessageList.get(0).length() <= 115)
+			{
 				try
 				{
 					BotManager.this.twitterManager.tweet(this.botMessageList.get(0));
 				}
 				catch (TwitterException e)
 				{
+					MineTweet.log.severe("[BOT]下記のメッセージは何らかの理由でツイートされませんでした。");
+					MineTweet.log.severe(BotManager.this.mtConfig.botMessageList.get(0));
 					e.printStackTrace();
+					return;
 				}
-			} else {
-				MineTweet.log.severe("[BOT]次のメッセージは116字以上の為ツイートできません。→" + (String)BotManager.this.mtConfig.botMessageList.get(0));
+			}
+			else
+			{
+				MineTweet.log.severe("[BOT]下記のメッセージは116字以上の為ツイートできません。");
+				MineTweet.log.severe(BotManager.this.mtConfig.botMessageList.get(0));
 			}
 		}
 	}

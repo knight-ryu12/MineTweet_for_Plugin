@@ -68,16 +68,17 @@ public class MineTweet extends JavaPlugin
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
 
-		//後からクラスパスに追加しようと模索しているが失敗する
-		//理由不明
-		Utility.copyFolderFromJar(getPluginJarFile(), new File(instance.getDataFolder(), "lib"), "lib");
-		ArrayList<String> fileList = new ArrayList<String>();
-		fileList.add("twitter4j-core-4.0.3-SNAPSHOT.jar");
-		fileList.add("twitter4j-stream-4.0.3-SNAPSHOT.jar");
-		fileList.add("twitter4j-async-4.0.3-SNAPSHOT.jar");
-
-		LibraryLoader TWITTER4J = new LibraryLoader(this, fileList, true);
-		TWITTER4J.load();
+		//上手く行かないので保留
+//		//後からクラスパスに追加しようと模索しているが失敗する
+//		//理由不明
+//		Utility.copyFolderFromJar(getPluginJarFile(), new File(instance.getDataFolder(), "lib"), "lib");
+//		ArrayList<String> fileList = new ArrayList<String>();
+//		fileList.add("twitter4j-core-4.0.3-SNAPSHOT.jar");
+//		fileList.add("twitter4j-stream-4.0.3-SNAPSHOT.jar");
+//		fileList.add("twitter4j-async-4.0.3-SNAPSHOT.jar");
+//
+//		LibraryLoader TWITTER4J = new LibraryLoader(this, fileList, true);
+//		TWITTER4J.load();
 
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
@@ -139,11 +140,11 @@ public class MineTweet extends JavaPlugin
 		commands.add(new ConfigReloadCommand());
 	}
 
-	public ClassLoader getThisClassLoader()
-	{
-		return this.getClassLoader();
-
-	}
+	//使わなくない？
+//	public ClassLoader getPluginClassLoader()
+//	{
+//		return this.getClassLoader();
+//	}
 
 	public File getPluginJarFile()
 	{
