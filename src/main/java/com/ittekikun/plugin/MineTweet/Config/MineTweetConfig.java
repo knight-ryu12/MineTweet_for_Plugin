@@ -13,6 +13,8 @@ public class MineTweetConfig
 	public ConfigAccessor twitter;
 	public ConfigAccessor bot;
 
+	public ConfigAccessor achievement;
+
 	public String consumerKey;
 	public String consumerSecret;
 	public String accessToken;
@@ -51,6 +53,7 @@ public class MineTweetConfig
 
 	public Boolean achievementAwardedTweet;
 	public String achievement_message_temp;
+	public String achievement_message_name;
 
 	public Boolean votifierReceiveTweetTweet;
 	public String votifier_message_temp;
@@ -76,9 +79,13 @@ public class MineTweetConfig
 		twitter = new ConfigAccessor(plugin ,"twitter.yml");
 		bot = new ConfigAccessor(plugin ,"bot.yml");
 
+		achievement = new ConfigAccessor(plugin ,"achievement.yml");
+
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
 		bot.saveDefaultConfig();
+
+		achievement.saveDefaultConfig();
 
 		this.GUICertify = system.getConfig().getBoolean("GUICertify",true);
 		this.consumerKey = system.getConfig().getString("consumerKey","xxxxxxxxxx");
@@ -126,5 +133,11 @@ public class MineTweetConfig
 		this.tweetCycle = bot.getConfig().getInt("TweetCycle");
 
 		//this.UserList = twitter.getConfig().getStringList("UserList");
+	}
+
+	public String loadAchievementName(String source)
+	{
+		String name = achievement.getConfig().getString(source, source);
+		return name;
 	}
 }

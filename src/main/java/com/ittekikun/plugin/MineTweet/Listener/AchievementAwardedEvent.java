@@ -28,7 +28,9 @@ public class AchievementAwardedEvent implements Listener
 		String player = event.getPlayer().getName();
 		String achievement = event.getAchievement().name();
 
-		String message = replaceKeywords(mtConfig.achievement_message_temp, player, achievement);
+		String name = mtConfig.loadAchievementName(achievement);
+
+		String message = replaceKeywords(mtConfig.achievement_message_temp, player, name);
 
 		twitterManager.tweet(message);
 	}
