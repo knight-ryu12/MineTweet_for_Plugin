@@ -15,7 +15,7 @@ public class ConfigReloadCommand extends BaseCommand
 		bePlayer = false;
 		name = "reload";
 		argLength = 0;
-		usage = "<- reload config.yml";
+		usage = "<- reload config files";
 	}
 
 	@Override
