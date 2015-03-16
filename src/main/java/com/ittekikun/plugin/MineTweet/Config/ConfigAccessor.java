@@ -23,6 +23,7 @@ public class ConfigAccessor
 		{
 			throw new IllegalArgumentException("plugin cannot be null");
 		}
+		//代替メソッドわからない
 		if(!plugin.isInitialized())
 		{
 			throw new IllegalArgumentException("plugin must be initialized");
@@ -37,24 +38,17 @@ public class ConfigAccessor
 		this.configFile = new File(plugin.getDataFolder(), fileName);
 	}
 
+	//正直これが何のためにあるかわからない
 	public void reloadConfig()
 	{
 		fileConfiguration = YamlConfiguration.loadConfiguration(configFile);
-
-//		// Look for defaults in the jar
-//		InputStream defConfigStream = plugin.getResource(fileName);
-//		if(defConfigStream != null)
-//		{
-//			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-//			fileConfiguration.setDefaults(defConfig);
-//		}
 	}
 
 	public FileConfiguration getConfig()
 	{
 		if(fileConfiguration == null)
 		{
-			this.reloadConfig();
+			return null;
 		}
 		return fileConfiguration;
 	}
@@ -73,7 +67,8 @@ public class ConfigAccessor
 			}
 			catch(IOException ex)
 			{
-				plugin.getLogger().log(Level.SEVERE, "Could not save config to " + configFile, ex);
+				MineTweet.log.severe("Could not save config to " + configFile);
+				ex.printStackTrace();
 			}
 		}
 	}
@@ -82,8 +77,7 @@ public class ConfigAccessor
 	{
 		if(!configFile.exists())
 		{
-			//this.plugin.saveResource(fileName, false);
-			Utility.copyFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
+			Utility.copyFileFromJar(plugin.getDataFolder(), configFile, fileName);
 		}
 	}
 }

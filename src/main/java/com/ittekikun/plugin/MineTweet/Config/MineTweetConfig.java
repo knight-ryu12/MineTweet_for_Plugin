@@ -75,11 +75,11 @@ public class MineTweetConfig
 
 	public void loadConfig()
 	{
-		system = new ConfigAccessor(plugin , "main.yml");
-		twitter = new ConfigAccessor(plugin ,"twitter.yml");
-		bot = new ConfigAccessor(plugin ,"bot.yml");
+		system = new ConfigAccessor(plugin, "main.yml");
+		twitter = new ConfigAccessor(plugin, "twitter.yml");
+		bot = new ConfigAccessor(plugin, "bot.yml");
 
-		achievement = new ConfigAccessor(plugin ,"achievement.yml");
+		achievement = new ConfigAccessor(plugin, "achievement.yml");
 
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
@@ -87,15 +87,15 @@ public class MineTweetConfig
 
 		achievement.saveDefaultConfig();
 
-		this.GUICertify = system.getConfig().getBoolean("GUICertify",true);
-		this.consumerKey = system.getConfig().getString("consumerKey","xxxxxxxxxx");
-		this.consumerSecret = system.getConfig().getString("consumerSecret","xxxxxxxxxx");
-		this.accessToken = system.getConfig().getString("accessToken","xxxxxxxxxx");
-		this.accessTokenSecret = system.getConfig().getString("accessTokenSecret","xxxxxxxxxx");
+		this.GUICertify = system.getConfig().getBoolean("GUICertify", true);
+		this.consumerKey = system.getConfig().getString("consumerKey", "xxxxxxxxxx");
+		this.consumerSecret = system.getConfig().getString("consumerSecret", "xxxxxxxxxx");
+		this.accessToken = system.getConfig().getString("accessToken", "xxxxxxxxxx");
+		this.accessTokenSecret = system.getConfig().getString("accessTokenSecret", "xxxxxxxxxx");
 
-		this.versionCheck = system.getConfig().getBoolean("VersionCheck",true);
+		this.versionCheck = system.getConfig().getBoolean("VersionCheck", true);
 
-		this.debugMode = system.getConfig().getBoolean("DebugMode",false);
+		this.debugMode = system.getConfig().getBoolean("DebugMode", false);
 
 		this.dateformat = twitter.getConfig().getString("DateFormat", "EEE MMM d HH:mm:ss z");
 
@@ -126,7 +126,7 @@ public class MineTweetConfig
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
 
-		this.zyari = twitter.getConfig().getBoolean("Zyari",false);//例のアレ
+		this.zyari = twitter.getConfig().getBoolean("Zyari", false);//例のアレ
 
 		this.useBot = bot.getConfig().getBoolean("UseBot");
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
@@ -135,6 +135,7 @@ public class MineTweetConfig
 		//this.UserList = twitter.getConfig().getStringList("UserList");
 	}
 
+	//個別にいつでもロードできるように
 	public String loadAchievementName(String source)
 	{
 		String name = achievement.getConfig().getString(source, source);

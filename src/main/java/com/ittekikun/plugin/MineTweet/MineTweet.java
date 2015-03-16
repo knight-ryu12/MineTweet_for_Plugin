@@ -46,7 +46,7 @@ public class MineTweet extends JavaPlugin
     public void onEnable()
     {
 		String ver = getServer().getBukkitVersion();
-		isV18 = (ver.startsWith("1.8-R") || ver.startsWith("1.8.1-R"));
+		isV18 = (ver.startsWith("1.8-R") || ver.startsWith("1.8.1-R"));//これ役に立たなかった
 
 	    instance = this;
 		pluginManager = instance.getServer().getPluginManager();

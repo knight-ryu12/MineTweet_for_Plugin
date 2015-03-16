@@ -28,6 +28,7 @@ public class AchievementAwardedEvent implements Listener
 		String player = event.getPlayer().getName();
 		String achievement = event.getAchievement().name();
 
+		//指定された項目がなければ渡された物がそのまま帰ってくる（はず）
 		String name = mtConfig.loadAchievementName(achievement);
 
 		String message = replaceKeywords(mtConfig.achievement_message_temp, player, name);

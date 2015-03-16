@@ -29,10 +29,10 @@
 #ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 #ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
 #
-#AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか※BETA機能
+#AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか
 #AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
 #
-#VotifierReceiveTweetTweet: 投票サイト(Japan Minecraft Servers等)で何者かが投票した時にツイートするか※BETA機能
+#VotifierReceiveTweetTweet: 投票サイト(Japan Minecraft Servers等)で何者かが投票した時にツイートするか
 #VotifierReceiveTemplate: 投票された時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$service→サービス名）
 
 DateFormat: EEE MMM d HH:mm:ss z

@@ -56,11 +56,11 @@ public class TweetCommand extends BaseCommand
 			catch(TwitterException e)
 			{
 				e.printStackTrace();
-				MineTweet.log.info("&bツイートに失敗しました。");
+				MineTweet.log.info("ツイートに失敗しました。");
 				return;
 			}
 
-			MineTweet.log.info("&bツイートに成功しました。");
+			MineTweet.log.info("ツイートに成功しました。");
 		}
 	}
 
