@@ -77,6 +77,7 @@ public class ConfigAccessor
 	{
 		if(!configFile.exists())
 		{
+			// TODO
 			Utility.copyFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
 		}
 	}
