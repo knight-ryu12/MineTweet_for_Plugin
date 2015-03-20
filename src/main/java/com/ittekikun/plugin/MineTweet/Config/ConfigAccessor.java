@@ -38,7 +38,7 @@ public class ConfigAccessor
 		this.configFile = new File(plugin.getDataFolder(), fileName);
 	}
 
-	//正直これが何のためにあるかわからない
+	//必要なことが分かった
 	public void reloadConfig()
 	{
 		fileConfiguration = YamlConfiguration.loadConfiguration(configFile);
@@ -48,7 +48,7 @@ public class ConfigAccessor
 	{
 		if(fileConfiguration == null)
 		{
-			return null;
+			this.reloadConfig();
 		}
 		return fileConfiguration;
 	}
@@ -77,7 +77,7 @@ public class ConfigAccessor
 	{
 		if(!configFile.exists())
 		{
-			Utility.copyFileFromJar(plugin.getDataFolder(), configFile, fileName);
+			Utility.copyFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
 		}
 	}
 }
