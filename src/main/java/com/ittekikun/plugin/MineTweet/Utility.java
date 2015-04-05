@@ -21,7 +21,6 @@ import java.util.zip.ZipEntry;
 
 public class Utility
 {
-
 	/**
 	 * ArrayUnion
 	 *
@@ -77,12 +76,7 @@ public class Utility
 			URL url = new URL(par1);
 			InputStream i = url.openConnection().getInputStream();
 
-			//いつかUTF8に対応したいなって（動作確認済み）
-			//↓
-			//1.4より移行
 			BufferedReader buf = new BufferedReader(new InputStreamReader(i, "UTF-8"));
-
-			//BufferedReader buf = new BufferedReader(new InputStreamReader(i));
 
 			String line = null;
 			int l = 0;
