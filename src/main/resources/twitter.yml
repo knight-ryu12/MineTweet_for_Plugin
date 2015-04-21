@@ -3,38 +3,40 @@
 # @license    LGPLv3 ※Twitter4JはApache License 2.0で配布されています。
 # @copyright  Copyright ittekikun 2013-2015
 #
+#AddDate: ツイートの最後に挿入されるタイムスタンプを追加するか設定します。無効にした場合状況によって同じ文字列がツイートされてしまいエラーが出る場合があります。その際は設定を有効にして下さい。
 #DateFormat: ツイートの最後に挿入されるタイムスタンプのフォーマットを変更できます。ですが変更をおすすめしませんのでフォーマットの詳細は調べてください。
 #
-#ServerStartTweet: サーバーを起動した時にツイートするか ※仕様上サーバーのReloadコマンド実行時にもツイートされてしまいますので個人的には使用非推奨
+#ServerStartTweet: サーバーを起動した時にツイートするか ※仕様上サーバーをリロードした際にもツイートされます。
 #ServerStopTweet: サーバーを停止した時にツイートするか ※同上
 #
 #ServerStartTemplate: サーバーが起動した時にツイートするメッセージをカスタマイズできます。
-#ServerStopTemplate:サーバーが停止した時にツイートするメッセージをカスタマイズできます。
+#ServerStopTemplate: サーバーが停止した時にツイートするメッセージをカスタマイズできます。
 #
-#CommandTweetTemplate: ツイートコマンドツイートメッセージをカスタマイズできます。($message→ツイート内容) 
+#CommandTweetTemplate: ツイートコマンドツイートメッセージをカスタマイズできます。($message→ツイート内容, $time→時間(フォーマットはDateFormatに準拠), $newline→改行)
 #
 #PlayerJoinTweet: プレイヤーがログインした時にツイートするか
-#JoinMessageTemplate: ログインした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID）
+#JoinMessageTemplate: ログインした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #PlayerQuitTweet: プレイヤーがログアウトした時にツイートするか
-#QuitMessageTemplate: ログアウトした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID）
+#QuitMessageTemplate: ログアウトした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #MCBansKICKTweet: KICKをツイートするか（要MCBANS）
-#KickMessageTemplate: KICKした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$reason→理由、$sender→KICKした人）
+#KickMessageTemplate: KICKした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$reason→理由、$sender→KICKした人, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #MCBansBANTweet: LBAN&GBANをツイートするか（要MCBANS・0でツイートなし、1でGBAN・LBAN両方、2でGBANのみ、3でLBAのみ）
-#BanMessageTemplate: GBANした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$reason→理由、$sender→GBANした人）
+#BanMessageTemplate: GBANした時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$reason→理由、$sender→GBANした人, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #LunaChatTweet: チャットチャンネル作成&削除をツイートするか(要LunaChat)
-#ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
-#ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名）
+#ChannelCreateTemplate: 作成した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
+#ChannelDeleteTemplate: 削除した時にツイートするメッセージをカスタマイズ出来ます。（$channel→チャンネル名, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #AchievementAwardedTweet: プレイヤーが実績を取得した時にツイートするか
-#AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID）
+#AchievementAwardedTemplate: 取得した時のメッセージをカスタマイズできます。（$user→ID, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 #
 #VotifierReceiveTweetTweet: 投票サイト(Japan Minecraft Servers等)で何者かが投票した時にツイートするか
-#VotifierReceiveTemplate: 投票された時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$service→サービス名）
+#VotifierReceiveTemplate: 投票された時にツイートするメッセージをカスタマイズ出来ます。（$user→ID、$service→サービス名, $time→時間(フォーマットはDateFormatに準拠), $newline→改行）
 
+AddDate: true
 DateFormat: EEE MMM d HH:mm:ss z
 
 ServerStartTweet: false

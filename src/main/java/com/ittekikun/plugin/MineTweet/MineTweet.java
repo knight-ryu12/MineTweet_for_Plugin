@@ -39,6 +39,9 @@ public class MineTweet extends JavaPlugin
 	public static final String KEYWORD_MESSAGE = "$message";
 	public static final String KEYWORD_ACHIEVEMENT = "$achievement";
 	public static final String KEYWORD_SERVICE = "$service";
+	public static final String KEYWORD_TIME = "$time";
+	public static final String KEYWORD_NEWLINE = "$newline";
+	public static final String SOURCE_NEWLINE = "\n";
 
 	public static boolean isV18;
 

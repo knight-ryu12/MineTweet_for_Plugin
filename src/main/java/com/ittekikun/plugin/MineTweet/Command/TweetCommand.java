@@ -75,6 +75,16 @@ public class TweetCommand extends BaseCommand
 		{
 			result = result.replace(MineTweet.KEYWORD_MESSAGE , message);
 		}
+		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		{
+			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+		}
+		if (result.contains(MineTweet.KEYWORD_TIME))
+		{
+			String time = Utility.timeGetter(mtConfig.dateformat);
+
+			result = result.replace(MineTweet.KEYWORD_TIME, time);
+		}
 		return result;
 	}
 

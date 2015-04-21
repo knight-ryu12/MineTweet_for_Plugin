@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,6 +21,7 @@ public class BotManager
 	public MineTweetConfig mtConfig;
 	public List<String> botMessageList;
 	public BukkitScheduler bukkitScheduler;
+	public int time;
 
 	public BotManager(MineTweet plugin)
 	{
@@ -35,6 +38,10 @@ public class BotManager
 
 			this.botMessageList = new ArrayList(this.mtConfig.botMessageList);
 			this.bukkitScheduler.runTaskTimer(this.plugin, new BotTweetTask(this.botMessageList), 0L, convertSecondToTick(this.mtConfig.tweetCycle));
+
+			//ツイート可能な文字数をここで出しておく
+			//面倒くさいけど仕方ないね♂
+			this.time = (140 - Utility.timeGetter(this.mtConfig.dateformat).length() + 2);
 		}
 	}
 
@@ -65,11 +72,12 @@ public class BotManager
 		{
 			Collections.rotate(this.botMessageList, 1);
 
-			if (this.botMessageList.get(0).length() <= 115)
+			if (this.botMessageList.get(0).length() <= time)
 			{
 				try
 				{
-					BotManager.this.twitterManager.tweet(this.botMessageList.get(0));
+					String message = replaceKeywords(this.botMessageList.get(0));
+					BotManager.this.twitterManager.tweet(message);
 				}
 				catch (TwitterException e)
 				{
@@ -81,9 +89,32 @@ public class BotManager
 			}
 			else
 			{
-				MineTweet.log.severe("[BOT]下記のメッセージは116字以上の為ツイートできません。");
+				MineTweet.log.severe("[BOT]下記のメッセージは" + time + "字以上の為ツイートできません。");
 				MineTweet.log.severe(BotManager.this.mtConfig.botMessageList.get(0));
 			}
+		}
+
+		private String replaceKeywords(String source)
+		{
+			String result = source;
+			if (result.contains(MineTweet.KEYWORD_NUMBER))
+			{
+				ArrayList players = Utility.getOnlinePlayers();
+				String number = Integer.toString((players.size()));
+
+				result = result.replace(MineTweet.KEYWORD_NUMBER, number);
+			}
+			if (result.contains(MineTweet.KEYWORD_NEWLINE))
+			{
+				result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			}
+			if (result.contains(MineTweet.KEYWORD_TIME))
+			{
+				String time = Utility.timeGetter(mtConfig.dateformat);
+
+				result = result.replace(MineTweet.KEYWORD_TIME, time);
+			}
+			return result;
 		}
 	}
 }

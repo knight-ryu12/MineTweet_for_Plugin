@@ -12,6 +12,5 @@
 
 UseBot: false
 BotMessageList:
-  - 【BOT】サーバー絶賛運営中です！
-  - (^^)
+  - $number人です。$line$timeです
 TweetCycle: 7200

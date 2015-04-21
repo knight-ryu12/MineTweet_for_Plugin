@@ -3,6 +3,7 @@ package com.ittekikun.plugin.MineTweet.Listener;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
+import com.ittekikun.plugin.MineTweet.Utility;
 import com.mcbans.firestar.mcbans.events.PlayerKickEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,6 +49,16 @@ public class MCBansKICKEvent implements Listener
         {
             result = result.replace(MineTweet.KEYWORD_SENDER, sender);
         }
+		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		{
+			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+		}
+		if (result.contains(MineTweet.KEYWORD_TIME))
+		{
+			String time = Utility.timeGetter(mtConfig.dateformat);
+
+			result = result.replace(MineTweet.KEYWORD_TIME, time);
+		}
         return result;
     }
 }

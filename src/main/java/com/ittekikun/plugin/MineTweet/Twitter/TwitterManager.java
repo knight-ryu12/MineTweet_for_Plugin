@@ -90,19 +90,32 @@ public class TwitterManager
 
 	public void tweet(String tweet) throws TwitterException
 	{
-		String time = Utility.timeGetter(mtConfig.dateformat);
-		StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
-
+		StatusUpdate statusUpdate = makeUpdate(tweet);
 		updateStatus(statusUpdate);
 	}
 
 	public void tweet(String tweet, File media) throws TwitterException
 	{
-		String time = Utility.timeGetter(mtConfig.dateformat);
-		StatusUpdate statusUpdate = new StatusUpdate(tweet + "\n" + time);
+		StatusUpdate statusUpdate = makeUpdate(tweet);
 		statusUpdate.media(media);
 
 		updateStatus(statusUpdate);
+	}
+
+	private StatusUpdate makeUpdate(String tweet)
+	{
+		StatusUpdate statusUpdate;
+
+		if(mtConfig.addDate)
+		{
+			String time = Utility.timeGetter(mtConfig.dateformat);
+			statusUpdate = new StatusUpdate(tweet + "\n" + time);
+		}
+		else
+		{
+			statusUpdate = new StatusUpdate(tweet);
+		}
+		return statusUpdate;
 	}
 
 	private void updateStatus(StatusUpdate statusUpdate) throws TwitterException

@@ -1,6 +1,6 @@
 name: MineTweet_for_Plugin
 main: com.ittekikun.plugin.MineTweet.MineTweet
-version: 1.45
+version: 1.46
 description: Twitter on BUKKIT Server.
 authors: [ittekikun]
 website: http://forum.minecraftuser.jp/viewtopic.php?f=38&t=12469

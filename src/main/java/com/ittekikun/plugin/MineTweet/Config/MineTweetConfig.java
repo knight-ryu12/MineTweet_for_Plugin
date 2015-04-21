@@ -22,6 +22,7 @@ public class MineTweetConfig
 
 	public Boolean GUICertify;
 
+	public Boolean addDate;
 	public String dateformat;
 
 	public Boolean serverStartTweet;
@@ -97,6 +98,7 @@ public class MineTweetConfig
 
 		this.debugMode = system.getConfig().getBoolean("DebugMode", false);
 
+		this.addDate = twitter.getConfig().getBoolean("AddDate", true);
 		this.dateformat = twitter.getConfig().getString("DateFormat", "EEE MMM d HH:mm:ss z");
 
 		this.playerJoinTweet = twitter.getConfig().getBoolean("PlayerJoinTweet");

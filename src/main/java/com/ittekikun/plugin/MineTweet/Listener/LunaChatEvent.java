@@ -5,6 +5,7 @@ import com.github.ucchyocean.lc.event.LunaChatChannelRemoveEvent;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
+import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import twitter4j.TwitterException;
@@ -28,7 +29,7 @@ public class LunaChatEvent implements Listener
 	    String channelName = event.getChannelName();
 	    
 	    //プライベートチャンネルの場合はツイートしない
-	    if(!isPrivateChanne(channelName))
+	    if(channelName.contains(">"))
 	    {
 	    	String Message = replaceKeywords(mtConfig.CC_message_temp, channelName);
 	    	
@@ -40,19 +41,14 @@ public class LunaChatEvent implements Listener
 	public void onChannelRemove(LunaChatChannelRemoveEvent event) throws TwitterException 
 	{
 		String channelName = event.getChannelName();
-	    
-	    if(!isPrivateChanne(channelName))
+
+		if(channelName.contains(">"))
 	    {
 	    	String Message = replaceKeywords(mtConfig.CD_message_temp, channelName);
 	    	
 	    	twittermanager.tweet(Message);
 	    }
 	}
-	
-	private Boolean isPrivateChanne(String channel)
-	{
-		return channel.contains(">");
-    }
 
 	private String replaceKeywords(String source,String channel)
 	{
@@ -61,6 +57,16 @@ public class LunaChatEvent implements Listener
         {
             result = result.replace(MineTweet.KEYWORD_CHANNEL, channel);
         }
+		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		{
+			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+		}
+		if (result.contains(MineTweet.KEYWORD_TIME))
+		{
+			String time = Utility.timeGetter(mtConfig.dateformat);
+
+			result = result.replace(MineTweet.KEYWORD_TIME, time);
+		}
         return result;
     }
 }
