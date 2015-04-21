@@ -3,6 +3,7 @@ package com.ittekikun.plugin.MineTweet.Listener;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
+import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -41,6 +42,16 @@ public class ZyariEvent implements Listener
 		if (result.contains(MineTweet.KEYWORD_USER) )
 		{
 			result = result.replace(MineTweet.KEYWORD_USER, name);
+		}
+		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		{
+			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+		}
+		if (result.contains(MineTweet.KEYWORD_TIME))
+		{
+			String time = Utility.timeGetter(mtConfig.dateformat);
+
+			result = result.replace(MineTweet.KEYWORD_TIME, time);
 		}
 		return result;
 	}
