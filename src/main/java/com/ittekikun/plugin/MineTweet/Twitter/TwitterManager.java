@@ -91,6 +91,7 @@ public class TwitterManager
 	public void tweet(String tweet) throws TwitterException
 	{
 		StatusUpdate statusUpdate = makeUpdate(tweet);
+
 		updateStatus(statusUpdate);
 	}
 
@@ -118,18 +119,31 @@ public class TwitterManager
 		return statusUpdate;
 	}
 
+	private boolean checkCharacters(String tweet)
+	{
+		if(tweet.length() <= 140)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	private void updateStatus(StatusUpdate statusUpdate) throws TwitterException
 	{
-		if(status)
-		{
-			twitter.updateStatus(statusUpdate);
-		}
-		else
+		if(!status)
 		{
 			MineTweet.log.severe("現在ツイートができない状況の為、下記のツイートは行われませんでした。");
 			MineTweet.log.severe(statusUpdate.getStatus());
 			return;
 		}
+		if(!checkCharacters(statusUpdate.getStatus()))
+		{
+			MineTweet.log.severe("文字数がオーバーしている為、下記のツイートは行われませんでした。");
+			MineTweet.log.severe(statusUpdate.getStatus());
+			return;
+		}
+
+		twitter.updateStatus(statusUpdate);
 	}
 
     public RequestToken openOAuthPage()

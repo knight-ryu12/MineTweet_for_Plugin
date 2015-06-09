@@ -21,7 +21,6 @@ public class BotManager
 	public MineTweetConfig mtConfig;
 	public List<String> botMessageList;
 	public BukkitScheduler bukkitScheduler;
-	public int time;
 
 	public BotManager(MineTweet plugin)
 	{
@@ -38,10 +37,6 @@ public class BotManager
 
 			this.botMessageList = new ArrayList(this.mtConfig.botMessageList);
 			this.bukkitScheduler.runTaskTimer(this.plugin, new BotTweetTask(this.botMessageList), 0L, convertSecondToTick(this.mtConfig.tweetCycle));
-
-			//ツイート可能な文字数をここで出しておく
-			//面倒くさいけど仕方ないね♂
-			this.time = (140 - Utility.timeGetter(this.mtConfig.dateformat).length() + 2);
 		}
 	}
 
@@ -71,26 +66,14 @@ public class BotManager
 		public void run()
 		{
 			Collections.rotate(this.botMessageList, 1);
-
-			if (this.botMessageList.get(0).length() <= time)
+			String message = replaceKeywords(this.botMessageList.get(0));
+			try
 			{
-				try
-				{
-					String message = replaceKeywords(this.botMessageList.get(0));
-					BotManager.this.twitterManager.tweet(message);
-				}
-				catch (TwitterException e)
-				{
-					MineTweet.log.severe("[BOT]下記のメッセージは何らかの理由でツイートされませんでした。");
-					MineTweet.log.severe(BotManager.this.mtConfig.botMessageList.get(0));
-					e.printStackTrace();
-					return;
-				}
+				BotManager.this.twitterManager.tweet(message);
 			}
-			else
+			catch (TwitterException e)
 			{
-				MineTweet.log.severe("[BOT]下記のメッセージは" + time + "字以上の為ツイートできません。");
-				MineTweet.log.severe(BotManager.this.mtConfig.botMessageList.get(0));
+				e.printStackTrace();
 			}
 		}
 
