@@ -15,6 +15,8 @@ public class MineTweetConfig
 
 	public ConfigAccessor achievement;
 
+	public ConfigAccessor earthquake;
+
 	public String consumerKey;
 	public String consumerSecret;
 	public String accessToken;
@@ -65,7 +67,7 @@ public class MineTweetConfig
 	public List<String> botMessageList;
 	public int tweetCycle;
 
-	//public List<String> UserList;
+	public Boolean noticeEarthquake;
 
 	public Boolean debugMode;
 
@@ -82,11 +84,15 @@ public class MineTweetConfig
 
 		achievement = new ConfigAccessor(plugin, "achievement.yml");
 
+		earthquake = new ConfigAccessor(plugin, "earthquake.yml");
+
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
 		bot.saveDefaultConfig();
 
 		achievement.saveDefaultConfig();
+
+		earthquake.saveDefaultConfig();
 
 		this.GUICertify = system.getConfig().getBoolean("GUICertify", true);
 		this.consumerKey = system.getConfig().getString("consumerKey", "xxxxxxxxxx");
@@ -134,7 +140,7 @@ public class MineTweetConfig
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
 		this.tweetCycle = bot.getConfig().getInt("TweetCycle");
 
-		//this.UserList = twitter.getConfig().getStringList("UserList");
+		this.noticeEarthquake = earthquake.getConfig().getBoolean("NoticeEarthquake", true);
 	}
 
 	//個別にいつでもロードできるように

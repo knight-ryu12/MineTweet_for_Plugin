@@ -5,11 +5,13 @@ import com.ittekikun.plugin.MineTweet.Data.ConsumerKey;
 import com.ittekikun.plugin.MineTweet.Gui.FX.CertifyGui_FX;
 import com.ittekikun.plugin.MineTweet.Gui.Swing.CertifyGui_Swing;
 import com.ittekikun.plugin.MineTweet.MineTweet;
+import com.ittekikun.plugin.MineTweet.Twitter.Earthquake.EarthquakeStream;
 import com.ittekikun.plugin.MineTweet.Utility;
 import org.bukkit.plugin.Plugin;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.awt.*;
@@ -21,6 +23,7 @@ public class TwitterManager
 {
     public MineTweet plugin;
     public Twitter twitter;
+	public TwitterStream earthquakeStream;
 	public MineTweetConfig mtConfig;
 	public AccessToken accesstoken;
 
@@ -37,12 +40,14 @@ public class TwitterManager
 		if(mtConfig.GUICertify)
 		{
 			//TwitterStream twStream = new TwitterStreamFactory(configuration).getInstance();
-			ConfigurationBuilder conf = new ConfigurationBuilder();
+			ConfigurationBuilder builder = new ConfigurationBuilder();
 
-			conf.setOAuthConsumerKey(ConsumerKey.m_ConsumerKey);
-			conf.setOAuthConsumerSecret(ConsumerKey.m_ConsumerSecret);
+			builder.setOAuthConsumerKey(ConsumerKey.m_ConsumerKey);
+			builder.setOAuthConsumerSecret(ConsumerKey.m_ConsumerSecret);
+			Configuration conf = builder.build();
 
-			twitter = new TwitterFactory(conf.build()).getInstance();
+			twitter = new TwitterFactory(conf).getInstance();
+			earthquakeStream = new TwitterStreamFactory(conf).getInstance();
 
 			accesstoken = loadAccessToken();
 
@@ -71,6 +76,7 @@ public class TwitterManager
 				status = true;
 
 				twitter.setOAuthAccessToken(accesstoken);
+				earthquakeStream.setOAuthAccessToken(accesstoken);
 			}
 		}
 		//GUI未使用時
@@ -78,13 +84,20 @@ public class TwitterManager
 		{
 			status = true;
 
-			ConfigurationBuilder conf = new ConfigurationBuilder();
-			conf.setOAuthConsumerKey(mtConfig.consumerKey);
-			conf.setOAuthConsumerSecret(mtConfig.consumerSecret);
-			conf.setOAuthAccessToken(mtConfig.accessToken);
-			conf.setOAuthAccessTokenSecret(mtConfig.accessTokenSecret);
+			ConfigurationBuilder builder = new ConfigurationBuilder();
+			builder.setOAuthConsumerKey(mtConfig.consumerKey);
+			builder.setOAuthConsumerSecret(mtConfig.consumerSecret);
+			builder.setOAuthAccessToken(mtConfig.accessToken);
+			builder.setOAuthAccessTokenSecret(mtConfig.accessTokenSecret);
+			Configuration conf = builder.build();
 
-			twitter = new TwitterFactory(conf.build()).getInstance();
+			twitter = new TwitterFactory(conf).getInstance();
+			earthquakeStream = new TwitterStreamFactory(conf).getInstance();
+		}
+
+		if(mtConfig.noticeEarthquake && status)
+		{
+			startUserStream();
 		}
 	}
 
@@ -264,4 +277,18 @@ public class TwitterManager
         String s = plugin.getDataFolder() + "/AccessToken.yml";
         return new File(s);
     }
+
+	private void startUserStream()
+	{
+		// イベントを受け取るリスナーオブジェクトを設定
+		earthquakeStream.addListener(new EarthquakeStream());
+
+
+		// User Streamの取得をスタート
+		earthquakeStream.user();
+
+		long[] list = {214358709L};
+		FilterQuery query = new FilterQuery(list);
+		earthquakeStream.filter(query);
+	}
 }
