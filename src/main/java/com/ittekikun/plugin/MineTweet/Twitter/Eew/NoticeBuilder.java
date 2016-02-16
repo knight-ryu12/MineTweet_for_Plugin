@@ -31,7 +31,7 @@ public class NoticeBuilder
         eewMes.add(ChatColor.YELLOW + "深さ: " + ChatColor.WHITE + eew[10]);
         eewMes.add(ChatColor.YELLOW + "最大震度: " + ChatColor.WHITE + eew[12]);
         eewMes.add(ChatColor.RED +    "震源地付近にお住まいの方は大きな地震に注意してください。");
-        eewMes.add(ChatColor.RED +    "テレビ・ラジオ等で正確な情報を収集してください。");
+        eewMes.add(ChatColor.RED +    "この情報を鵜呑みにせず、テレビ・ラジオ等で正確な情報を収集してください。");
         eewMes.add(ChatColor.RED +    "※この情報は震度速報ではありません。あくまでも、地震の規模を早期に推定するものです。");
         eewMes.add(ChatColor.RED +    "--------------------------------");
 
