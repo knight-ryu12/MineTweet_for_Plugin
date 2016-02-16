@@ -15,7 +15,7 @@ public class MineTweetConfig
 
 	public ConfigAccessor achievement;
 
-	public ConfigAccessor earthquake;
+	public ConfigAccessor eew;
 
 	public String consumerKey;
 	public String consumerSecret;
@@ -67,7 +67,8 @@ public class MineTweetConfig
 	public List<String> botMessageList;
 	public int tweetCycle;
 
-	public Boolean noticeEarthquake;
+	public Boolean noticeEew;
+	public Boolean eewDemo;
 
 	public Boolean debugMode;
 
@@ -84,7 +85,7 @@ public class MineTweetConfig
 
 		achievement = new ConfigAccessor(plugin, "achievement.yml");
 
-		earthquake = new ConfigAccessor(plugin, "earthquake.yml");
+		eew = new ConfigAccessor(plugin, "eew.yml");
 
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
@@ -92,7 +93,7 @@ public class MineTweetConfig
 
 		achievement.saveDefaultConfig();
 
-		earthquake.saveDefaultConfig();
+		eew.saveDefaultConfig();
 
 		this.GUICertify = system.getConfig().getBoolean("GUICertify", true);
 		this.consumerKey = system.getConfig().getString("consumerKey", "xxxxxxxxxx");
@@ -140,7 +141,8 @@ public class MineTweetConfig
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
 		this.tweetCycle = bot.getConfig().getInt("TweetCycle");
 
-		this.noticeEarthquake = earthquake.getConfig().getBoolean("NoticeEarthquake", true);
+		this.noticeEew = eew.getConfig().getBoolean("NoticeEEW", true);
+		this.eewDemo = eew.getConfig().getBoolean("DemoMode", false);
 	}
 
 	//個別にいつでもロードできるように

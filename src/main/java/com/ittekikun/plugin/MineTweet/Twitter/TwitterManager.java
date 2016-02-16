@@ -21,7 +21,7 @@ public class TwitterManager
 {
     public MineTweet plugin;
     public Twitter twitter;
-	public TwitterStream earthquakeStream;
+	public TwitterStream eewStream;
 	public MineTweetConfig mtConfig;
 	public AccessToken accesstoken;
 
@@ -45,7 +45,7 @@ public class TwitterManager
 			Configuration conf = builder.build();
 
 			twitter = new TwitterFactory(conf).getInstance();
-			earthquakeStream = new TwitterStreamFactory(conf).getInstance();
+			eewStream = new TwitterStreamFactory(conf).getInstance();
 
 			accesstoken = loadAccessToken();
 
@@ -74,7 +74,7 @@ public class TwitterManager
 				status = true;
 
 				twitter.setOAuthAccessToken(accesstoken);
-				earthquakeStream.setOAuthAccessToken(accesstoken);
+				eewStream.setOAuthAccessToken(accesstoken);
 			}
 		}
 		//GUI未使用時
@@ -90,12 +90,12 @@ public class TwitterManager
 			Configuration conf = builder.build();
 
 			twitter = new TwitterFactory(conf).getInstance();
-			earthquakeStream = new TwitterStreamFactory(conf).getInstance();
+			eewStream = new TwitterStreamFactory(conf).getInstance();
 		}
 
-		if(mtConfig.noticeEarthquake && status)
+		if(mtConfig.noticeEew && status)
 		{
-			startUserStream();
+			startEewStream();
 		}
 	}
 
@@ -276,17 +276,20 @@ public class TwitterManager
         return new File(s);
     }
 
-	private void startUserStream()
+	public void startEewStream()
 	{
-		// イベントを受け取るリスナーオブジェクトを設定
-		earthquakeStream.addListener(new EewStream());
+		eewStream.addListener(new EewStream(mtConfig));
 
+		eewStream.user();
 
-		// User Streamの取得をスタート
-		earthquakeStream.user();
-
-		long[] list = {2942053603L};
+		//214358709 = @eewbot
+		long[] list = {214358709L};
 		FilterQuery query = new FilterQuery(list);
-		earthquakeStream.filter(query);
+		eewStream.filter(query);
+	}
+
+	public void shutdownEewStream()
+	{
+		eewStream.shutdown();
 	}
 }

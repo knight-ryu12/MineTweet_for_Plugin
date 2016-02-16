@@ -1,21 +1,36 @@
 package com.ittekikun.plugin.MineTweet.Twitter.Eew;
 
+import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import twitter4j.*;
 
 public class EewStream implements UserStreamListener
 {
+    public MineTweetConfig mtConfig;
+
+    public EewStream(MineTweetConfig mtConfig)
+    {
+        this.mtConfig = mtConfig;
+    }
+
     @Override
     public void onStatus(Status status)
     {
-        System.out.println("onStatus @" + status.getUser().getScreenName() + " - " + status.getText());
+        //System.out.println("onStatus @" + status.getUser().getScreenName() + " - " + status.getText());
 
         String array[] = status.getText().split(",", 0);
 
-        for (int i = 0 ; i < array.length ; i++){
-            System.out.println(i + "番目の要素 = :" + array[i]);
-        }
+//        for (int i = 0 ; i < array.length ; i++){
+//            System.out.println(i + "番目の要素 = :" + array[i]);
+//        }
 
-        NoticeBuilder.noticeEew(array);
+        if((Integer.parseInt(array[14])) == 1)
+        {
+            NoticeBuilder.noticeEewMessage(array, false);
+        }
+        else if(((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
+        {
+            NoticeBuilder.noticeEewMessage(array, true);
+        }
     }
 
     @Override

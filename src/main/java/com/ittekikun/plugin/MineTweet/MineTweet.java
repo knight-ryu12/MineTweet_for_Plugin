@@ -86,7 +86,6 @@ public class MineTweet extends JavaPlugin
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
 
-
 	    botManager = new BotManager(this);
 	    botManager.botSetup();
 

@@ -4,35 +4,46 @@ import com.ittekikun.plugin.MineTweet.MineTweet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NoticeBuilder
 {
-    public static void noticeEew(String[] eew)
+    public static void noticeEewMessage(String[] eew, boolean demo)
     {
-        String[] eewMes = new String[9];
+        List<String> eewMes = new ArrayList<String>();
 
-        Bukkit.broadcastMessage("テスト");
+        if(!demo)
+        {
+            eewMes.add(ChatColor.RED +    "----------緊急地震速報----------");
+        }
+        else
+        {
+            eewMes.add(ChatColor.RED +    "----------緊急地震速報(動作確認モード有効中)----------");
+            eewMes.add(ChatColor.RED +    "テレビなどで普段発表されていない緊急地震速報を表示している可能性があります。");
+            eewMes.add(ChatColor.RED +    "念の為、テレビ・ラジオ等で正確な情報を収集してください。");
+            eewMes.add(ChatColor.RED +    "動作確認し次第、動作確認モードを無効にして下さい。");
+        }
 
-        eewMes[0] = ChatColor.RED +    "----------緊急地震速報----------";
-        eewMes[1] = ChatColor.YELLOW + "発表時刻: " + eew[3];
-        eewMes[2] = (ChatColor.YELLOW + "震源地: " + eew[9]);
-        eewMes[3] = ChatColor.YELLOW + "マグニチュード: " + eew[11];
-        eewMes[4] = ChatColor.YELLOW + "深さ: " + eew[10];
-        eewMes[5] = ChatColor.YELLOW + "最大震度: " + eew[12];
-        eewMes[6] = ChatColor.RED +    "震源地付近にお住まいの方は大きな地震に注意してください。";
-        eewMes[7] = ChatColor.RED +    "テレビ・ラジオ等で正確な情報を収集してください。";
-        eewMes[8] = ChatColor.RED +    "※この情報は震度速報ではありません。あくまでも、地震の規模を早期に推定するものです。";
-        eewMes[9] = ChatColor.RED +    "--------------------------------";
-
-        Bukkit.broadcastMessage( eewMes[2]);
+        eewMes.add(ChatColor.YELLOW + "発表時刻: " + ChatColor.WHITE + eew[2]);
+        eewMes.add(ChatColor.YELLOW + "震源地: " + ChatColor.WHITE + eew[9]);
+        eewMes.add(ChatColor.YELLOW + "マグニチュード: " + ChatColor.WHITE + eew[11]);
+        eewMes.add(ChatColor.YELLOW + "深さ: " + ChatColor.WHITE + eew[10]);
+        eewMes.add(ChatColor.YELLOW + "最大震度: " + ChatColor.WHITE + eew[12]);
+        eewMes.add(ChatColor.RED +    "震源地付近にお住まいの方は大きな地震に注意してください。");
+        eewMes.add(ChatColor.RED +    "テレビ・ラジオ等で正確な情報を収集してください。");
+        eewMes.add(ChatColor.RED +    "※この情報は震度速報ではありません。あくまでも、地震の規模を早期に推定するものです。");
+        eewMes.add(ChatColor.RED +    "--------------------------------");
 
         broadcastMessage(eewMes);
     }
 
-    public static void broadcastMessage(String[] eewMes)
+    public static void broadcastMessage(List eewMes)
     {
-        for(String message : eewMes)
+
+        for(int i = 0; i < eewMes.size(); ++i)
         {
-            Bukkit.broadcastMessage(message);
+            Bukkit.broadcastMessage(eewMes.get(i).toString());
         }
     }
 }
