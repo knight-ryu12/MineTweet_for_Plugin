@@ -64,7 +64,7 @@ public class LibraryLoader
 
     private void addClassPath(final URL url) throws IOException
     {
-        final URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        final URLClassLoader sysloader = (URLClassLoader) plugin.getPluginClassLoader();
         final Class<URLClassLoader> sysclass = URLClassLoader.class;
         try
         {

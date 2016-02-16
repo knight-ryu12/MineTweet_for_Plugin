@@ -76,15 +76,16 @@ public class MineTweet extends JavaPlugin
 //		//理由不明
 //		Utility.copyFolderFromJar(getPluginJarFile(), new File(instance.getDataFolder(), "lib"), "lib");
 //		ArrayList<String> fileList = new ArrayList<String>();
-//		fileList.add("twitter4j-core-4.0.3-SNAPSHOT.jar");
-//		fileList.add("twitter4j-stream-4.0.3-SNAPSHOT.jar");
-//		fileList.add("twitter4j-async-4.0.3-SNAPSHOT.jar");
+//		fileList.add("twitter4j-core-4.0.5-SNAPSHOT.jar");
+//		fileList.add("twitter4j-stream-4.0.5-SNAPSHOT.jar");
+//		fileList.add("twitter4j-async-4.0.5-SNAPSHOT.jar");
 //
 //		LibraryLoader TWITTER4J = new LibraryLoader(this, fileList, true);
 //		TWITTER4J.load();
 
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
+
 
 	    botManager = new BotManager(this);
 	    botManager.botSetup();
@@ -144,10 +145,10 @@ public class MineTweet extends JavaPlugin
 	}
 
 	//使わなくない？
-//	public ClassLoader getPluginClassLoader()
-//	{
-//		return this.getClassLoader();
-//	}
+	public ClassLoader getPluginClassLoader()
+	{
+		return this.getClassLoader();
+	}
 
 	public File getPluginJarFile()
 	{

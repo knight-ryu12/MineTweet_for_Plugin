@@ -2,12 +2,10 @@ package com.ittekikun.plugin.MineTweet.Twitter;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Data.ConsumerKey;
-import com.ittekikun.plugin.MineTweet.Gui.FX.CertifyGui_FX;
 import com.ittekikun.plugin.MineTweet.Gui.Swing.CertifyGui_Swing;
 import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.Earthquake.EarthquakeStream;
+import com.ittekikun.plugin.MineTweet.Twitter.Eew.EewStream;
 import com.ittekikun.plugin.MineTweet.Utility;
-import org.bukkit.plugin.Plugin;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
@@ -281,13 +279,13 @@ public class TwitterManager
 	private void startUserStream()
 	{
 		// イベントを受け取るリスナーオブジェクトを設定
-		earthquakeStream.addListener(new EarthquakeStream());
+		earthquakeStream.addListener(new EewStream());
 
 
 		// User Streamの取得をスタート
 		earthquakeStream.user();
 
-		long[] list = {214358709L};
+		long[] list = {2942053603L};
 		FilterQuery query = new FilterQuery(list);
 		earthquakeStream.filter(query);
 	}
