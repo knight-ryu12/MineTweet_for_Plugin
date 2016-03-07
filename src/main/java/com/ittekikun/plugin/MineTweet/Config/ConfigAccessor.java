@@ -1,6 +1,7 @@
 package com.ittekikun.plugin.MineTweet.Config;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.logging.Level;
 
 import com.ittekikun.plugin.MineTweet.MineTweet;
@@ -77,8 +78,14 @@ public class ConfigAccessor
 	{
 		if(!configFile.exists())
 		{
-			// TODO このへんの仕様確認する
-			Utility.copyFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
+			if(MineTweet.isV19)
+			{
+				Utility.copyRawFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
+			}
+			else
+			{
+				Utility.copyFileFromJar(MineTweet.instance.getPluginJarFile(), configFile, fileName);
+			}
 		}
 	}
 }

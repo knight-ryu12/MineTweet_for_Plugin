@@ -43,13 +43,14 @@ public class MineTweet extends JavaPlugin
 	public static final String KEYWORD_NEWLINE = "$newline";
 	public static final String SOURCE_NEWLINE = "\n";
 
-	public static boolean isV18;
+	public static boolean isV19;
 
     @Override
     public void onEnable()
     {
 		String ver = getServer().getBukkitVersion();
-		isV18 = (ver.startsWith("1.8-R") || ver.startsWith("1.8.1-R"));//これ役に立たなかった
+		//念のために1.9.4まで拾えるように
+		isV19 = (ver.startsWith("1.9-R") || ver.startsWith("1.9.1-R") || ver.startsWith("1.9.2-R") || ver.startsWith("1.9.3-R") || ver.startsWith("1.9.4-R"));
 
 	    instance = this;
 		pluginManager = instance.getServer().getPluginManager();

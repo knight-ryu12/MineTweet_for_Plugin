@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.jar.JarEntry;
@@ -111,6 +114,39 @@ public class Utility
 		String Time = calendar.getTime().toString();
 
 		return Time;
+	}
+
+	/**
+	 * jarファイルの中に格納されているテキストファイルを、jarファイルの外にコピーするメソッド<br/>
+	 * ファイルをそのままコピーします。
+	 *
+	 * @param jarFile        jarファイル
+	 * @param targetFile     コピー先
+	 * @param sourceFilePath コピー元
+	 */
+	public static void copyRawFileFromJar(File jarFile, File targetFile, String sourceFilePath)
+	{
+		File parent = targetFile.getParentFile();
+		if (!parent.exists())
+		{
+			parent.mkdirs();
+		}
+
+		try
+		{
+			JarFile jar = null;
+			InputStream is = null;
+
+			jar = new JarFile(jarFile);
+			ZipEntry zipEntry = jar.getEntry(sourceFilePath);
+			is = jar.getInputStream(zipEntry);
+
+			Files.copy(is, targetFile.toPath());
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -499,7 +535,7 @@ public class Utility
 		return new ArrayList<Player>();
 	}
 
-	public static void generationPlayerImage(String playerName, String message, File tweetImage) throws TwitterException
+	public static void generationPlayerImage(String playerName, String message, File tweetImage)
 	{
 		BufferedImage base = null;
 		BufferedImage head = null;

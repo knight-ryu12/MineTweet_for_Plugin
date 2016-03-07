@@ -5,6 +5,7 @@ import com.ittekikun.plugin.MineTweet.Exception.CommandException;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import com.ittekikun.plugin.MineTweet.Utility;
+import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import twitter4j.TwitterException;
@@ -42,7 +43,17 @@ public class TweetCommand extends BaseCommand
 				return;
 			}
 			Utility.message(sender, "ツイートに成功しました。");
-			player.playSound(player.getLocation(), Sound.LEVEL_UP, 10, 1);
+
+			//1.9から
+			Class<?> cl = Sound.class;
+
+			for (Object o: cl.getEnumConstants())
+			{
+				if (o.toString().equals("ENTITY_PLAYER_LEVELUP") || (o.toString().equals("LEVEL_UP")))
+				{
+					player.playSound(player.getLocation(), (Sound)o, 10, 1);
+				}
+			}
 		}
 		else
 		{
