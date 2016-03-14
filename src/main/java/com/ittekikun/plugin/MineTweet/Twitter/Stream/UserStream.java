@@ -1,13 +1,16 @@
-package com.ittekikun.plugin.MineTweet.Twitter.Eew;
+package com.ittekikun.plugin.MineTweet.Twitter.Stream;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
+import com.ittekikun.plugin.MineTweet.Event.UserStream.*;
+import com.ittekikun.plugin.MineTweet.Twitter.Stream.Eew.NoticeBuilder;
+import org.bukkit.Bukkit;
 import twitter4j.*;
 
-public class EewStream implements UserStreamListener
+public class UserStream implements UserStreamListener
 {
     public MineTweetConfig mtConfig;
 
-    public EewStream(MineTweetConfig mtConfig)
+    public UserStream(MineTweetConfig mtConfig)
     {
         this.mtConfig = mtConfig;
     }
@@ -31,36 +34,51 @@ public class EewStream implements UserStreamListener
         {
             NoticeBuilder.noticeEewMessage(array, true);
         }
+
+        onStatusEvent event = new onStatusEvent(status);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-
+    public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice)
+    {
+        onDeletionNoticeEvent event = new onDeletionNoticeEvent(statusDeletionNotice);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onTrackLimitationNotice(int i) {
-
+    public void onTrackLimitationNotice(int i)
+    {
+        onTrackLimitationNoticeEvent event = new onTrackLimitationNoticeEvent(i);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onScrubGeo(long l, long l1) {
-
+    public void onScrubGeo(long l, long l1)
+    {
+        onScrubGeoEvent event = new onScrubGeoEvent(l, l1);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onStallWarning(StallWarning stallWarning) {
-
+    public void onStallWarning(StallWarning stallWarning)
+    {
+        onStallWarningEvent event = new onStallWarningEvent(stallWarning);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onDeletionNotice(long l, long l1) {
-
+    public void onDeletionNotice(long l, long l1)
+    {
+        onDeletionNoticeEvent event = new onDeletionNoticeEvent(l, l1);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onFriendList(long[] longs) {
-
+    public void onFriendList(long[] longs)
+    {
+        onFriendListEvent event = new onFriendListEvent(longs);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override

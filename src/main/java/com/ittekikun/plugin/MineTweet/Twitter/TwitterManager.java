@@ -4,7 +4,7 @@ import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Data.ConsumerKey;
 import com.ittekikun.plugin.MineTweet.Gui.Swing.CertifyGui_Swing;
 import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.Eew.EewStream;
+import com.ittekikun.plugin.MineTweet.Twitter.Stream.UserStream;
 import com.ittekikun.plugin.MineTweet.Utility;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
@@ -278,7 +278,7 @@ public class TwitterManager
 
 	public void startEewStream()
 	{
-		eewStream.addListener(new EewStream(mtConfig));
+		eewStream.addListener(new UserStream(mtConfig));
 
 		eewStream.user();
 

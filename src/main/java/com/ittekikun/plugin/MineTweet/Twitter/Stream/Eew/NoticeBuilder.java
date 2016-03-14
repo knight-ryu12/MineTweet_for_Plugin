@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet.Twitter.Eew;
+package com.ittekikun.plugin.MineTweet.Twitter.Stream.Eew;
 
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import org.bukkit.Bukkit;
