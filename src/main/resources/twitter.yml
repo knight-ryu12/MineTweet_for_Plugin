@@ -68,3 +68,6 @@ AchievementAwardedTemplate: $userが、「$achievement」という実績を取�
 
 VotifierReceiveTweet: false
 VotifierReceiveTemplate: $userさんが、「$service」で当鯖に投票しました。【自動投稿】
+
+##TEST
+ReceiveStream: false

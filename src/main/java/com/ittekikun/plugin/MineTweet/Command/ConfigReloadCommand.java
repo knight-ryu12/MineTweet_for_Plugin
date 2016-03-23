@@ -25,13 +25,13 @@ public class ConfigReloadCommand extends BaseCommand
 		{
 			HandlerList.unregisterAll(plugin);
 			plugin.botManager.taskCancel();
-			plugin.twitterManager.shutdownEewStream();
+			plugin.twitterManager.shutdownRecieveStream();
 
 			plugin.mtConfig.loadConfig();
 
-			if(mtConfig.noticeEew && twitterManager.status)
+			if((mtConfig.noticeEew || mtConfig.receiveStream) && twitterManager.status)
 			{
-				twitterManager.startEewStream();
+				twitterManager.startRecieveStream();
 			}
 			plugin.botManager.botSetup();
 			RegistrationListener.registrationListener(plugin);

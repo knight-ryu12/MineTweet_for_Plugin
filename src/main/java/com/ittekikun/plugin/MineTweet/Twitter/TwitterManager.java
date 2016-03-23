@@ -21,7 +21,7 @@ public class TwitterManager
 {
     public MineTweet plugin;
     public Twitter twitter;
-	public TwitterStream eewStream;
+	public TwitterStream userStream;
 	public MineTweetConfig mtConfig;
 	public AccessToken accesstoken;
 
@@ -45,7 +45,7 @@ public class TwitterManager
 			Configuration conf = builder.build();
 
 			twitter = new TwitterFactory(conf).getInstance();
-			eewStream = new TwitterStreamFactory(conf).getInstance();
+			userStream = new TwitterStreamFactory(conf).getInstance();
 
 			accesstoken = loadAccessToken();
 
@@ -74,7 +74,7 @@ public class TwitterManager
 				status = true;
 
 				twitter.setOAuthAccessToken(accesstoken);
-				eewStream.setOAuthAccessToken(accesstoken);
+				userStream.setOAuthAccessToken(accesstoken);
 			}
 		}
 		//GUI未使用時
@@ -90,12 +90,12 @@ public class TwitterManager
 			Configuration conf = builder.build();
 
 			twitter = new TwitterFactory(conf).getInstance();
-			eewStream = new TwitterStreamFactory(conf).getInstance();
+			userStream = new TwitterStreamFactory(conf).getInstance();
 		}
 
-		if(mtConfig.noticeEew && status)
+		if((mtConfig.noticeEew || mtConfig.receiveStream) && status)
 		{
-			startEewStream();
+			startRecieveStream();
 		}
 	}
 
@@ -276,20 +276,20 @@ public class TwitterManager
         return new File(s);
     }
 
-	public void startEewStream()
+	public void startRecieveStream()
 	{
-		eewStream.addListener(new UserStream(mtConfig));
+		userStream.addListener(new UserStream(mtConfig));
 
-		eewStream.user();
+		userStream.user();
 
 		//214358709 = @eewbot
-		long[] list = {214358709L};
-		FilterQuery query = new FilterQuery(list);
-		eewStream.filter(query);
+		//long[] list = {214358709L};
+		//FilterQuery query = new FilterQuery(list);
+		//userStream.filter(query);
 	}
 
-	public void shutdownEewStream()
+	public void shutdownRecieveStream()
 	{
-		eewStream.shutdown();
+		userStream.shutdown();
 	}
 }

@@ -4,6 +4,7 @@ import com.ittekikun.plugin.MineTweet.MineTweet;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MineTweetConfig
 {
@@ -16,6 +17,8 @@ public class MineTweetConfig
 	public ConfigAccessor achievement;
 
 	public ConfigAccessor eew;
+
+	public String messageLanguage;
 
 	public String consumerKey;
 	public String consumerSecret;
@@ -61,6 +64,8 @@ public class MineTweetConfig
 	public Boolean votifierReceiveTweetTweet;
 	public String votifier_message_temp;
 
+	public Boolean receiveStream;
+
 	public Boolean zyari;//例のアレ;
 
 	public Boolean useBot;
@@ -105,6 +110,8 @@ public class MineTweetConfig
 
 		this.debugMode = system.getConfig().getBoolean("DebugMode", false);
 
+		this.messageLanguage = system.getConfig().getString("Language", "ja");
+
 		this.addDate = twitter.getConfig().getBoolean("AddDate", true);
 		this.dateformat = twitter.getConfig().getString("DateFormat", "EEE MMM d HH:mm:ss z");
 
@@ -134,6 +141,8 @@ public class MineTweetConfig
 		this.votifier_message_temp = twitter.getConfig().getString("VotifierReceiveTemplate", "$userさんが、「$service」で当鯖に投票しました。【自動投稿】");
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
+
+		this.receiveStream = twitter.getConfig().getBoolean("ReceiveStream");
 
 		this.zyari = twitter.getConfig().getBoolean("Zyari", false);//例のアレ
 

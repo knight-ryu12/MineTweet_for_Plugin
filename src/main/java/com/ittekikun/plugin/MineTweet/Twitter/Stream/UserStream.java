@@ -18,21 +18,21 @@ public class UserStream implements UserStreamListener
     @Override
     public void onStatus(Status status)
     {
-        //System.out.println("onStatus @" + status.getUser().getScreenName() + " - " + status.getText());
-
-        String array[] = status.getText().split(",", 0);
-
-//        for (int i = 0 ; i < array.length ; i++){
-//            System.out.println(i + "番目の要素 = :" + array[i]);
-//        }
-
-        if((Integer.parseInt(array[14])) == 1)
+        if(mtConfig.noticeEew)
         {
-            NoticeBuilder.noticeEewMessage(array, false);
-        }
-        else if(((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
-        {
-            NoticeBuilder.noticeEewMessage(array, true);
+            //214358709 = @eewbot
+            if(status.getUser().getId() == 214358709L)
+            {
+                String array[] = status.getText().split(",", 0);
+
+                if ((Integer.parseInt(array[14])) == 1)
+                {
+                    NoticeBuilder.noticeEewMessage(array, false);
+                } else if (((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
+                {
+                    NoticeBuilder.noticeEewMessage(array, true);
+                }
+            }
         }
 
         onStatusEvent event = new onStatusEvent(status);
@@ -82,28 +82,38 @@ public class UserStream implements UserStreamListener
     }
 
     @Override
-    public void onFavorite(User user, User user1, Status status) {
-
+    public void onFavorite(User user, User user1, Status status)
+    {
+        onFavoriteEvent event = new onFavoriteEvent(user, user1, status);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onUnfavorite(User user, User user1, Status status) {
-
+    public void onUnfavorite(User user, User user1, Status status)
+    {
+        onUnfavoriteEvent event = new onUnfavoriteEvent(user, user1, status);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onFollow(User user, User user1) {
-
+    public void onFollow(User user, User user1)
+    {
+        onFollowEvent event = new onFollowEvent(user, user1);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onUnfollow(User user, User user1) {
-
+    public void onUnfollow(User user, User user1)
+    {
+        onUnfollowEvent event = new onUnfollowEvent(user, user1);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
-    public void onDirectMessage(DirectMessage directMessage) {
-
+    public void onDirectMessage(DirectMessage directMessage)
+    {
+        onDirectMessageEvent event = new onDirectMessageEvent(directMessage);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     @Override
