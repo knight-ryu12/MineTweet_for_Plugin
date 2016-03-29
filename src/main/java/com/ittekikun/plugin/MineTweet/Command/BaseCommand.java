@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Exception.CommandException;
+import com.ittekikun.plugin.MineTweet.Locale.MessageLoader;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import com.ittekikun.plugin.MineTweet.Utility;
@@ -28,12 +29,14 @@ public abstract class BaseCommand
 	protected MineTweet plugin;
 	protected MineTweetConfig mtConfig;
 	protected TwitterManager twitterManager;
+	protected MessageLoader messageLoader;
 
 	public boolean run(final MineTweet plugin, final CommandSender sender, final String[] preArgs, final String cmd)
 	{
 		this.plugin = plugin;
 		this.mtConfig = plugin.mtConfig;
 		this.twitterManager = plugin.twitterManager;
+		this.messageLoader = plugin.messageLoader;
 
 		this.sender = sender;
 		this.command = cmd;
@@ -62,7 +65,7 @@ public abstract class BaseCommand
 		// 実行にプレイヤーであることが必要かチェックする
 		if (bePlayer && !(sender instanceof Player))
 		{
-			Utility.message(sender, "&cThis command cannot run from Console!");
+			Utility.message(sender, messageLoader.loadMessage("language.name"));
 			return true;
 		}
 		if (sender instanceof Player)

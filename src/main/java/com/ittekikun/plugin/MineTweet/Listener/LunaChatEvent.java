@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 public class LunaChatEvent implements Listener 
 {
 	MineTweet plugin;
@@ -53,19 +55,19 @@ public class LunaChatEvent implements Listener
 	private String replaceKeywords(String source,String channel)
 	{
 		String result = source;
-        if (result.contains(MineTweet.KEYWORD_CHANNEL) )
+        if (result.contains(KEYWORD_CHANNEL) )
         {
-            result = result.replace(MineTweet.KEYWORD_CHANNEL, channel);
+            result = result.replace(KEYWORD_CHANNEL, channel);
         }
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
         return result;
     }

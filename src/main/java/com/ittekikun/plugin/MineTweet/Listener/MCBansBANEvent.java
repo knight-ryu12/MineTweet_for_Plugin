@@ -4,10 +4,13 @@ import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.MineTweet;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import com.ittekikun.plugin.MineTweet.Utility;
+import com.mcbans.firestar.mcbans.events.PlayerBanEvent;
 import com.mcbans.firestar.mcbans.events.PlayerBannedEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import twitter4j.TwitterException;
+
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
 
 public class MCBansBANEvent implements Listener 
 {
@@ -39,7 +42,7 @@ public class MCBansBANEvent implements Listener
 
 			//GBAN
 			case 2: 
-				if (!event.isGlobalBan()) 
+				if (event.isLocalBan())
 					return;
 
 				message = replaceKeywords(mtConfig.ban_message_temp, name,reason,senderName);
@@ -60,27 +63,27 @@ public class MCBansBANEvent implements Listener
 	private String replaceKeywords(String source,String name, String reason, String sender)
 	{
 		String result = source;
-        if ( result.contains(MineTweet.KEYWORD_USER) )
+        if ( result.contains(KEYWORD_PLAYER) )
         {
-            result = result.replace(MineTweet.KEYWORD_USER, name);
+            result = result.replace(KEYWORD_PLAYER, name);
         }
-        if ( result.contains(MineTweet.KEYWORD_REASON) )
+        if ( result.contains(KEYWORD_REASON) )
         {
-            result = result.replace(MineTweet.KEYWORD_REASON, reason);
+            result = result.replace(KEYWORD_REASON, reason);
         }
-        if ( result.contains(MineTweet.KEYWORD_SENDER) )
+        if ( result.contains(KEYWORD_SENDER) )
         {
-            result = result.replace(MineTweet.KEYWORD_SENDER, sender);
+            result = result.replace(KEYWORD_SENDER, sender);
         }
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
         return result;
     }

@@ -96,7 +96,7 @@ public class CertifyGui_Swing
                 {
                     if(pin.length() == 7)
                     {
-                        if(Utility.isInteger(pin))
+                        if(Utility.checkIntParse(pin))
                         {
                             accessToken = twitter.getOAuthAccessToken(requesttoken, pin);
                             twitterManager.storeAccessToken(accessToken);

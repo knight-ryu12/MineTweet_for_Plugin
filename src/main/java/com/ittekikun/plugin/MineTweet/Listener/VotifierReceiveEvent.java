@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 public class VotifierReceiveEvent implements Listener
 {
 	MineTweet plugin;
@@ -39,23 +41,23 @@ public class VotifierReceiveEvent implements Listener
 	private String replaceKeywords(String source,String name,String service)
 	{
 		String result = source;
-		if (result.contains(MineTweet.KEYWORD_USER) )
+		if (result.contains(KEYWORD_PLAYER) )
 		{
-			result = result.replace(MineTweet.KEYWORD_USER, name);
+			result = result.replace(KEYWORD_PLAYER, name);
 		}
-		if (result.contains(MineTweet.KEYWORD_SERVICE) )
+		if (result.contains(KEYWORD_SERVICE) )
 		{
-			result = result.replace(MineTweet.KEYWORD_SERVICE, service);
+			result = result.replace(KEYWORD_SERVICE, service);
 		}
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
 		return result;
 	}

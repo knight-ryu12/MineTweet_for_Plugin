@@ -21,14 +21,15 @@ public class UserStream implements UserStreamListener
         if(mtConfig.noticeEew)
         {
             //214358709 = @eewbot
-            if(status.getUser().getId() == 214358709L)
+            if(status.getUser().getId() == 214358709L && !(status.isRetweet()))
             {
                 String array[] = status.getText().split(",", 0);
 
                 if ((Integer.parseInt(array[14])) == 1)
                 {
                     NoticeBuilder.noticeEewMessage(array, false);
-                } else if (((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
+                }
+                else if (((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
                 {
                     NoticeBuilder.noticeEewMessage(array, true);
                 }

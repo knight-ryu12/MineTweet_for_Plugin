@@ -96,6 +96,16 @@ public class RegistrationListener
 			}
 		}
 
+		if (mtConfig.playerDeathTweetTweet)
+		{
+			pluginmanager.registerEvents(new DeathEvent(plugin), plugin);
+		}
+
+		if (mtConfig.playerDeathByPlayerTweetTweet)
+		{
+			pluginmanager.registerEvents(new DeathByPlayerEvent(plugin), plugin);
+		}
+
 		if (mtConfig.zyari)
 		{
 			pluginmanager.registerEvents(new ZyariEvent(plugin), plugin);

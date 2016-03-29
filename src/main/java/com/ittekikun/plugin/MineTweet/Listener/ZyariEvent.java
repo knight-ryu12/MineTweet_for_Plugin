@@ -11,6 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 //例のアレ
 public class ZyariEvent implements Listener
 {
@@ -39,19 +41,19 @@ public class ZyariEvent implements Listener
 	private String replaceKeywords(String source,String name)
 	{
 		String result = source;
-		if (result.contains(MineTweet.KEYWORD_USER) )
+		if (result.contains(KEYWORD_PLAYER) )
 		{
-			result = result.replace(MineTweet.KEYWORD_USER, name);
+			result = result.replace(KEYWORD_PLAYER, name);
 		}
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
 		return result;
 	}

@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 public class MCBansKICKEvent implements Listener 
 {
 	MineTweet plugin;
@@ -37,27 +39,27 @@ public class MCBansKICKEvent implements Listener
 	private String replaceKeywords(String source,String name, String reason, String sender)
 	{
 		String result = source;
-        if ( result.contains(MineTweet.KEYWORD_USER) )
+        if ( result.contains(KEYWORD_PLAYER))
         {
-            result = result.replace(MineTweet.KEYWORD_USER, name);
+            result = result.replace(KEYWORD_PLAYER, name);
         }
-        if ( result.contains(MineTweet.KEYWORD_REASON) )
+        if ( result.contains(KEYWORD_REASON) )
         {
-            result = result.replace(MineTweet.KEYWORD_REASON, reason);
+            result = result.replace(KEYWORD_REASON, reason);
         }
-        if ( result.contains(MineTweet.KEYWORD_SENDER) )
+        if ( result.contains(KEYWORD_SENDER) )
         {
-            result = result.replace(MineTweet.KEYWORD_SENDER, sender);
+            result = result.replace(KEYWORD_SENDER, sender);
         }
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
         return result;
     }

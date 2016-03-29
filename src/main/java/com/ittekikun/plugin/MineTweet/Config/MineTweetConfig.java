@@ -64,6 +64,10 @@ public class MineTweetConfig
 	public Boolean votifierReceiveTweetTweet;
 	public String votifier_message_temp;
 
+	public Boolean playerDeathTweetTweet;
+	public Boolean playerDeathByPlayerTweetTweet;
+	public String player_death_message_temp;
+
 	public Boolean receiveStream;
 
 	public Boolean zyari;//例のアレ;

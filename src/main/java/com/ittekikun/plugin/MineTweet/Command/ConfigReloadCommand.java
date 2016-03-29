@@ -28,6 +28,7 @@ public class ConfigReloadCommand extends BaseCommand
 			plugin.twitterManager.shutdownRecieveStream();
 
 			plugin.mtConfig.loadConfig();
+			plugin.messageLoader.saveMessages();
 
 			if((mtConfig.noticeEew || mtConfig.receiveStream) && twitterManager.status)
 			{
@@ -40,11 +41,11 @@ public class ConfigReloadCommand extends BaseCommand
 		{
 			if(sender instanceof Player)
 			{
-				Utility.message(sender, "全てのconfigファイルのリロードに失敗しました。");
+				Utility.message(sender, messageLoader.loadMessage("config.reload.successful"));
 			}
 			else
 			{
-				MineTweet.log.severe("全てconfigファイルのリロードに失敗しました。");
+				MineTweet.log.severe(messageLoader.loadMessage("config.reload.unsuccessful"));
 			}
 
 			ex.printStackTrace();
@@ -53,11 +54,11 @@ public class ConfigReloadCommand extends BaseCommand
 
 		if(sender instanceof Player)
 		{
-			Utility.message(sender, "全てのconfigファイルをリロードしました。");
+			Utility.message(sender, messageLoader.loadMessage("config.reload.successful"));
 		}
 		else
 		{
-			MineTweet.log.info("全てのconfigファイルをリロードしました。");
+			MineTweet.log.info(messageLoader.loadMessage("config.reload.unsuccessful"));
 		}
 	}
 

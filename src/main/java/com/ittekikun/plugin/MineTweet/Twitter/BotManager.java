@@ -14,6 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 public class BotManager
 {
 	public MineTweet plugin;
@@ -80,22 +82,22 @@ public class BotManager
 		private String replaceKeywords(String source)
 		{
 			String result = source;
-			if (result.contains(MineTweet.KEYWORD_NUMBER))
+			if (result.contains(KEYWORD_NUMBER))
 			{
 				ArrayList players = Utility.getOnlinePlayers();
 				String number = Integer.toString((players.size()));
 
-				result = result.replace(MineTweet.KEYWORD_NUMBER, number);
+				result = result.replace(KEYWORD_NUMBER, number);
 			}
-			if (result.contains(MineTweet.KEYWORD_NEWLINE))
+			if (result.contains(KEYWORD_NEWLINE))
 			{
-				result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+				result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 			}
-			if (result.contains(MineTweet.KEYWORD_TIME))
+			if (result.contains(KEYWORD_TIME))
 			{
 				String time = Utility.timeGetter(mtConfig.dateformat);
 
-				result = result.replace(MineTweet.KEYWORD_TIME, time);
+				result = result.replace(KEYWORD_TIME, time);
 			}
 			return result;
 		}

@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import static com.ittekikun.plugin.MineTweet.Keyword.*;
+
 public class QuitPlayerEvent implements Listener
 {
 	MineTweet plugin;
@@ -87,23 +89,23 @@ public class QuitPlayerEvent implements Listener
 	private String replaceKeywords(String source, String name, String number)
 	{
 		String result = source;
-		if (result.contains(MineTweet.KEYWORD_USER))
+		if (result.contains(KEYWORD_PLAYER))
 		{
-			result = result.replace(MineTweet.KEYWORD_USER, name);
+			result = result.replace(KEYWORD_PLAYER, name);
 		}
-		if (result.contains(MineTweet.KEYWORD_NUMBER))
+		if (result.contains(KEYWORD_NUMBER))
 		{
-			result = result.replace(MineTweet.KEYWORD_NUMBER, number);
+			result = result.replace(KEYWORD_NUMBER, number);
 		}
-		if (result.contains(MineTweet.KEYWORD_NEWLINE))
+		if (result.contains(KEYWORD_NEWLINE))
 		{
-			result = result.replace(MineTweet.KEYWORD_NEWLINE, MineTweet.SOURCE_NEWLINE);
+			result = result.replace(KEYWORD_NEWLINE, SOURCE_NEWLINE);
 		}
-		if (result.contains(MineTweet.KEYWORD_TIME))
+		if (result.contains(KEYWORD_TIME))
 		{
 			String time = Utility.timeGetter(mtConfig.dateformat);
 
-			result = result.replace(MineTweet.KEYWORD_TIME, time);
+			result = result.replace(KEYWORD_TIME, time);
 		}
 		return result;
 	}
