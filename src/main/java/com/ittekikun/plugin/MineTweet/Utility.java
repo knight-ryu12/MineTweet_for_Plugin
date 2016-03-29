@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import twitter4j.TwitterException;
 
 import javax.imageio.ImageIO;
@@ -30,7 +31,6 @@ public class Utility
 	 *
 	 * @param par1 繋げたい配列（配列String型）
 	 * @param par2 どこの配列から繋げたいか（int型）
-	 * @author ittekikun
 	 */
 	public static String JoinArray(String[] par1, int par2)
 	{
@@ -66,6 +66,15 @@ public class Utility
 
 		return time;
 	}
+
+	public static String simpleTimeGetter()
+	{
+		Calendar calendar = Calendar.getInstance();
+		String time = calendar.getTime().toString();
+
+		return time;
+	}
+
 
 	/**
 	 * HTTPサーバー上のテキストの内容を読み込む
@@ -108,14 +117,6 @@ public class Utility
 		return null;
 	}
 
-	public static String simpleTimeGetter()
-	{
-		Calendar calendar = Calendar.getInstance();
-		String Time = calendar.getTime().toString();
-
-		return Time;
-	}
-
 	/**
 	 * jarファイルの中に格納されているテキストファイルを、jarファイルの外にコピーするメソッド<br/>
 	 * ファイルをそのままコピーします。
@@ -126,6 +127,9 @@ public class Utility
 	 */
 	public static void copyRawFileFromJar(File jarFile, File targetFile, String sourceFilePath)
 	{
+		JarFile jar = null;
+		InputStream is = null;
+
 		File parent = targetFile.getParentFile();
 		if (!parent.exists())
 		{
@@ -134,9 +138,6 @@ public class Utility
 
 		try
 		{
-			JarFile jar = null;
-			InputStream is = null;
-
 			jar = new JarFile(jarFile);
 			ZipEntry zipEntry = jar.getEntry(sourceFilePath);
 			is = jar.getInputStream(zipEntry);
@@ -147,6 +148,131 @@ public class Utility
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+			if (jar != null)
+			{
+				try
+				{
+					jar.close();
+				}
+				catch (IOException e)
+				{
+					// do nothing.
+				}
+			}
+			if (is != null)
+			{
+				try
+				{
+					is.close();
+				}
+				catch (IOException e)
+				{
+					// do nothing.
+				}
+			}
+		}
+	}
+
+	/**
+	 * jarファイルの中に格納されているフォルダを、中のファイルごとまとめてjarファイルの外にコピーするメソッド<br/>
+	 * テキストファイルは、そのままコピーされます。
+	 *
+	 * @author https://github.com/ucchyocean/
+	 *
+	 * @param jarFile        jarファイル
+	 * @param targetFilePath コピー先のフォルダ
+	 * @param sourceFilePath コピー元のフォルダ
+	 */
+	public static void copyRawFolderFromJar(File jarFile, File targetFilePath, String sourceFilePath)
+	{
+
+		JarFile jar = null;
+
+		if (!targetFilePath.exists())
+		{
+			targetFilePath.mkdirs();
+		}
+
+		try
+		{
+			jar = new JarFile(jarFile);
+			Enumeration<JarEntry> entries = jar.entries();
+
+			while (entries.hasMoreElements())
+			{
+
+				JarEntry entry = entries.nextElement();
+				if (!entry.isDirectory() && entry.getName().startsWith(sourceFilePath))
+				{
+
+					File targetFile = new File(targetFilePath, sourceFilePath);
+					if (!targetFile.getParentFile().exists())
+					{
+						targetFile.getParentFile().mkdirs();
+					}
+
+					if(!targetFile.exists())
+					{
+						targetFile.mkdir();
+					}
+
+					File target = new File(targetFile, entry.getName().substring(sourceFilePath.length() + 1));
+
+					InputStream is = null;
+
+					try
+					{
+						is = jar.getInputStream(entry);
+
+						Files.copy(is, target.toPath());
+					}
+					catch (FileNotFoundException e)
+					{
+						MineTweet.log.severe("configファイルのリロードに失敗しました。");
+						e.printStackTrace();
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					finally
+					{
+						if (is != null)
+						{
+							try
+							{
+								is.close();
+							}
+							catch (IOException e)
+							{
+								// do nothing.
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (jar != null)
+			{
+				try
+				{
+					jar.close();
+				}
+				catch (IOException e)
+				{
+					// do nothing.
+				}
+			}
+		}
+
 	}
 
 	/**
@@ -294,11 +420,18 @@ public class Utility
 				if (!entry.isDirectory() && entry.getName().startsWith(sourceFilePath))
 				{
 
-					File targetFile = new File(targetFilePath, entry.getName().substring(sourceFilePath.length() + 1));
+					File targetFile = new File(targetFilePath, sourceFilePath);
 					if (!targetFile.getParentFile().exists())
 					{
 						targetFile.getParentFile().mkdirs();
 					}
+
+					if(!targetFile.exists())
+					{
+						targetFile.mkdir();
+					}
+
+					File target = new File(targetFile, entry.getName().substring(sourceFilePath.length() + 1));
 
 					InputStream is = null;
 					FileOutputStream fos = null;
@@ -309,7 +442,7 @@ public class Utility
 					{
 						is = jar.getInputStream(entry);
 						reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-						fos = new FileOutputStream(targetFile);
+						fos = new FileOutputStream(target);
 						writer = new BufferedWriter(new OutputStreamWriter(fos));
 
 						String line;
@@ -402,27 +535,18 @@ public class Utility
 	}
 
 	/**
-	 * 渡された文字列が数字(Integer)か調べる
-	 * 調べ方は雑
+	 * 文字列が整数値に変換可能かどうかを判定する
+	 * @param source 変換対象の文字列
+	 * @return 整数に変換可能かどうか
 	 *
-	 * TODO 正直これ要らない気がしてきた
-	 *
-	 * @param num String
-	 * @return 見ての通り
+	 * @author https://github.com/ucchyocean/
 	 */
-	@SuppressWarnings("unused")
-	public static boolean isInteger(String num)
+	public static boolean checkIntParse(String source)
 	{
-		try
-		{
-			int n = Integer.parseInt(num);
-			return true;
-		}
-		catch (NumberFormatException e)
-		{
-			return false;
-		}
+
+		return source.matches("^-?[0-9]{1,9}$");
 	}
+
 
 	/**
 	 * メッセージをユニキャスト
@@ -492,6 +616,18 @@ public class Utility
 		MineTweet.log.info(MineTweet.prefix + "Received " + i + "players: " + message);
 	}
 
+	public static Player getPlayer(String name)
+	{
+		for (Player player : getOnlinePlayers())
+		{
+			if(player.getName().equals(name))
+			{
+				return player;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * @return 接続中の全てのプレイヤー
 	 * @author https://github.com/ucchyocean/
@@ -533,6 +669,25 @@ public class Utility
 			// never happen
 		}
 		return new ArrayList<Player>();
+	}
+
+	/**
+	 * 指定したプレイヤーが手に持っているアイテムを返します。
+	 * CB1.9以降と、CB1.8.8以前で、互換性を保つために使用します。
+	 * @param player プレイヤー
+	 * @return 手に持っているアイテム
+	 */
+	@SuppressWarnings("deprecation")
+	public static ItemStack getItemInHand(Player player)
+	{
+		if (MineTweet.isV19)
+		{
+			return player.getInventory().getItemInMainHand();
+		}
+		else
+		{
+			return player.getItemInHand();
+		}
 	}
 
 	public static void generationPlayerImage(String playerName, String message, File tweetImage)

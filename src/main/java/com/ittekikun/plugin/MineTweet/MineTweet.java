@@ -6,6 +6,7 @@ import com.ittekikun.plugin.MineTweet.Command.HelpCommand;
 import com.ittekikun.plugin.MineTweet.Command.TweetCommand;
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
+import com.ittekikun.plugin.MineTweet.Locale.MessageLoader;
 import com.ittekikun.plugin.MineTweet.Twitter.BotManager;
 import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
 import org.bukkit.command.Command;
@@ -22,26 +23,15 @@ public class MineTweet extends JavaPlugin
 {
 	public static MineTweet instance;
     public static Logger log;
-	public static final String prefix = "[MineTweet] ";
+	public static final String prefix = "[MineTweet_for_Plugin] ";
 	public static PluginManager pluginManager;
 	public static boolean forceDisableMode;
 	public MineTweetConfig mtConfig;
+	public MessageLoader messageLoader;
 	public TwitterManager twitterManager;
 	public BotManager botManager;
 
 	private List<BaseCommand> commands = new ArrayList<BaseCommand>();
-
-	public static final String KEYWORD_USER = "$user";
-	public static final String KEYWORD_REASON = "$reason";
-	public static final String KEYWORD_SENDER = "$sender";
-	public static final String KEYWORD_NUMBER = "$number";
-	public static final String KEYWORD_CHANNEL = "$channel";
-	public static final String KEYWORD_MESSAGE = "$message";
-	public static final String KEYWORD_ACHIEVEMENT = "$achievement";
-	public static final String KEYWORD_SERVICE = "$service";
-	public static final String KEYWORD_TIME = "$time";
-	public static final String KEYWORD_NEWLINE = "$newline";
-	public static final String SOURCE_NEWLINE = "\n";
 
 	public static boolean isV19;
 
@@ -72,6 +62,9 @@ public class MineTweet extends JavaPlugin
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
 
+		messageLoader = new MessageLoader(this, "languages", "messages", mtConfig.messageLanguage);
+		messageLoader.saveMessages();
+
 		//上手く行かないので保留
 //		//後からクラスパスに追加しようと模索しているが失敗する
 //		//理由不明
@@ -94,6 +87,9 @@ public class MineTweet extends JavaPlugin
 	    RegistrationListener.registrationListener(instance);
 
 		serverStartTweet();
+
+		log.info(messageLoader.loadMessage("language.name") + " " + messageLoader.loadMessage("system.load.language"));
+		log.info(messageLoader.loadMessage("system.load.complete"));
     }
 
 	@Override
