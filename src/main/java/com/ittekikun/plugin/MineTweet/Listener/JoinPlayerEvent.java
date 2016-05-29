@@ -41,7 +41,7 @@ public class JoinPlayerEvent implements Listener
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onJoinPlayer(final PlayerJoinEvent event) throws TwitterException
 	{
-		if (!mtConfig.debugMode)
+		if (!mtConfig.tweetWithIma)
 		{
 			Player player = event.getPlayer();
 			String name = player.getName();

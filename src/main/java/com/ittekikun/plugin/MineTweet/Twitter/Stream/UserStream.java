@@ -2,7 +2,6 @@ package com.ittekikun.plugin.MineTweet.Twitter.Stream;
 
 import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
 import com.ittekikun.plugin.MineTweet.Event.UserStream.*;
-import com.ittekikun.plugin.MineTweet.Twitter.Stream.Eew.NoticeBuilder;
 import org.bukkit.Bukkit;
 import twitter4j.*;
 
@@ -18,24 +17,6 @@ public class UserStream implements UserStreamListener
     @Override
     public void onStatus(Status status)
     {
-        if(mtConfig.noticeEew)
-        {
-            //214358709 = @eewbot
-            if(status.getUser().getId() == 214358709L && !(status.isRetweet()))
-            {
-                String array[] = status.getText().split(",", 0);
-
-                if ((Integer.parseInt(array[14])) == 1)
-                {
-                    NoticeBuilder.noticeEewMessage(array, false);
-                }
-                else if (((Integer.parseInt(array[14])) == 0) && mtConfig.eewDemo)
-                {
-                    NoticeBuilder.noticeEewMessage(array, true);
-                }
-            }
-        }
-
         onStatusEvent event = new onStatusEvent(status);
         Bukkit.getServer().getPluginManager().callEvent(event);
     }

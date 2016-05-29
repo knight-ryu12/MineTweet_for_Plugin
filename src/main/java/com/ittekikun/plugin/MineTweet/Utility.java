@@ -89,12 +89,7 @@ public class Utility
 			URL url = new URL(par1);
 			InputStream i = url.openConnection().getInputStream();
 
-			//いつかUTF8に対応したいなって（動作確認済み）
-			//↓
-			//1.4より移行
 			BufferedReader buf = new BufferedReader(new InputStreamReader(i, "UTF-8"));
-
-			//BufferedReader buf = new BufferedReader(new InputStreamReader(i));
 
 			String line = null;
 			int l = 0;
@@ -110,8 +105,6 @@ public class Utility
 		}
 		catch (IOException e)
 		{
-			MineTweet.log.severe("何らかの理由でバージョンアップ確認サーバーにアクセスできませんでした。");
-			MineTweet.log.severe("お手数ですが一度UpdateCheckをfalseにする事をおすすめします。");
 			e.printStackTrace();
 		}
 		return null;
@@ -230,7 +223,6 @@ public class Utility
 					}
 					catch (FileNotFoundException e)
 					{
-						MineTweet.log.severe("configファイルのリロードに失敗しました。");
 						e.printStackTrace();
 					}
 					catch (IOException e)
@@ -455,7 +447,6 @@ public class Utility
 					}
 					catch (FileNotFoundException e)
 					{
-						MineTweet.log.severe("configファイルのリロードに失敗しました。");
 						e.printStackTrace();
 					}
 					catch (IOException e)

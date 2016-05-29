@@ -16,8 +16,6 @@ public class MineTweetConfig
 
 	public ConfigAccessor achievement;
 
-	public ConfigAccessor eew;
-
 	public String messageLanguage;
 
 	public String consumerKey;
@@ -52,6 +50,8 @@ public class MineTweetConfig
 	public Boolean playerJoinTweet;
 	public Boolean playerQuitTweet;
 
+	public Boolean tweetWithIma;
+
 	public int mcBansBanTweet;
 	public Boolean mcBansKickTweet;
 
@@ -76,9 +76,6 @@ public class MineTweetConfig
 	public List<String> botMessageList;
 	public int tweetCycle;
 
-	public Boolean noticeEew;
-	public Boolean eewDemo;
-
 	public Boolean debugMode;
 
 	public MineTweetConfig(MineTweet plugin)
@@ -94,15 +91,11 @@ public class MineTweetConfig
 
 		achievement = new ConfigAccessor(plugin, "achievement.yml");
 
-		eew = new ConfigAccessor(plugin, "eew.yml");
-
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
 		bot.saveDefaultConfig();
 
 		achievement.saveDefaultConfig();
-
-		eew.saveDefaultConfig();
 
 		this.GUICertify = system.getConfig().getBoolean("GUICertify", true);
 		this.consumerKey = system.getConfig().getString("consumerKey", "xxxxxxxxxx");
@@ -123,6 +116,8 @@ public class MineTweetConfig
 		this.join_message_temp = twitter.getConfig().getString("JoinMessageTemplate", "$userさんがサーバーにログインしました。現在$number人がログインしています。【自動投稿】");
 		this.playerQuitTweet = twitter.getConfig().getBoolean("PlayerQuitTweet");
 		this.quit_message_temp = twitter.getConfig().getString("QuitMessageTemplate", "$userさんがサーバーからログアウトしました。現在$number人がログインしています。【自動投稿】");
+
+		this.tweetWithIma = twitter.getConfig().getBoolean("TweetWithImage");
 
 		this.serverStartTweet = twitter.getConfig().getBoolean("ServerStartTweet");
 		this.start_message_temp = twitter.getConfig().getString("ServerStartTemplate", "サーバーを起動しました。【自動投稿】");
@@ -153,9 +148,6 @@ public class MineTweetConfig
 		this.useBot = bot.getConfig().getBoolean("UseBot");
 		this.botMessageList = bot.getConfig().getStringList("BotMessageList");
 		this.tweetCycle = bot.getConfig().getInt("TweetCycle");
-
-		this.noticeEew = eew.getConfig().getBoolean("NoticeEEW", true);
-		this.eewDemo = eew.getConfig().getBoolean("DemoMode", false);
 	}
 
 	//個別にいつでもロードできるように
