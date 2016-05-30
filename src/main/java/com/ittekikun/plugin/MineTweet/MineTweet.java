@@ -1,14 +1,15 @@
-package com.ittekikun.plugin.MineTweet;
+package com.ittekikun.plugin.minetweet;
 
-import com.ittekikun.plugin.MineTweet.Command.BaseCommand;
-import com.ittekikun.plugin.MineTweet.Command.ConfigReloadCommand;
-import com.ittekikun.plugin.MineTweet.Command.HelpCommand;
-import com.ittekikun.plugin.MineTweet.Command.TweetCommand;
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
-import com.ittekikun.plugin.MineTweet.Locale.MessageLoader;
-import com.ittekikun.plugin.MineTweet.Twitter.BotManager;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
+import com.ittekikun.plugin.itkcore.locale.MessageFileLoader;
+import com.ittekikun.plugin.itkcore.logger.LogFilter;
+import com.ittekikun.plugin.minetweet.api.MineTweetAPI;
+import com.ittekikun.plugin.minetweet.command.BaseCommand;
+import com.ittekikun.plugin.minetweet.command.ConfigReloadCommand;
+import com.ittekikun.plugin.minetweet.command.HelpCommand;
+import com.ittekikun.plugin.minetweet.command.TweetCommand;
+import com.ittekikun.plugin.minetweet.listener.RegistrationListener;
+import com.ittekikun.plugin.minetweet.twitter.BotManager;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
@@ -27,7 +28,7 @@ public class MineTweet extends JavaPlugin
 	public static PluginManager pluginManager;
 	public static boolean forceDisableMode;
 	public MineTweetConfig mtConfig;
-	public MessageLoader messageLoader;
+	public MessageFileLoader messageLoader;
 	public TwitterManager twitterManager;
 	public BotManager botManager;
 
@@ -38,21 +39,20 @@ public class MineTweet extends JavaPlugin
     @Override
     public void onEnable()
     {
-		String ver = getServer().getBukkitVersion();
-		//念のために1.9.4まで拾えるように
-		isV19 = (ver.startsWith("1.9-R") || ver.startsWith("1.9.1-R") || ver.startsWith("1.9.2-R") || ver.startsWith("1.9.3-R") || ver.startsWith("1.9.4-R"));
-
-	    instance = this;
+		instance = this;
 		pluginManager = instance.getServer().getPluginManager();
 
-	    log = Logger.getLogger("MineTweet");
+	    log = Logger.getLogger("minetweet");
 	    log.setFilter(new LogFilter(prefix));
+
+		messageLoader = new MessageFileLoader(instance.getDataFolder(), instance.getPluginJarFile(), "languages", "messages", mtConfig.messageLanguage);
+		messageLoader.saveMessages();
 
 		if(!(Double.parseDouble(System.getProperty("java.specification.version")) >= 1.7))
 		{
 			//JAVA6以前の環境では動きません
-			log.severe("JAVA7以上がインストールされていません。");
-			log.severe("プラグインを無効化します。");
+			log.severe(messageLoader.loadMessage("system.load.error.java"));
+			log.severe(messageLoader.loadMessage("system.load.error.disable"));
 			forceDisableMode = true;
 			pluginManager.disablePlugin(this);
 
@@ -62,23 +62,10 @@ public class MineTweet extends JavaPlugin
 	    mtConfig = new MineTweetConfig(this);
 	    mtConfig.loadConfig();
 
-		messageLoader = new MessageLoader(this, "languages", "messages", mtConfig.messageLanguage);
-		messageLoader.saveMessages();
-
-		//上手く行かないので保留
-//		//後からクラスパスに追加しようと模索しているが失敗する
-//		//理由不明
-//		Utility.copyFolderFromJar(getPluginJarFile(), new File(instance.getDataFolder(), "lib"), "lib");
-//		ArrayList<String> fileList = new ArrayList<String>();
-//		fileList.add("twitter4j-core-4.0.5-SNAPSHOT.jar");
-//		fileList.add("twitter4j-stream-4.0.5-SNAPSHOT.jar");
-//		fileList.add("twitter4j-async-4.0.5-SNAPSHOT.jar");
-//
-//		LibraryLoader TWITTER4J = new LibraryLoader(this, fileList, true);
-//		TWITTER4J.load();
-
 	    twitterManager = new TwitterManager(this);
 	    twitterManager.startSetup();
+
+
 
 	    botManager = new BotManager(this);
 	    botManager.botSetup();

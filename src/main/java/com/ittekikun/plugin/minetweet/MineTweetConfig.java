@@ -1,14 +1,12 @@
-package com.ittekikun.plugin.MineTweet.Config;
+package com.ittekikun.plugin.minetweet;
 
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.ittekikun.plugin.itkcore.config.ConfigAccessor;
 
 import java.util.List;
-import java.util.Locale;
 
 public class MineTweetConfig
 {
-	public JavaPlugin plugin;
+	public MineTweet plugin;
 
 	public ConfigAccessor system;
 	public ConfigAccessor twitter;
@@ -61,12 +59,12 @@ public class MineTweetConfig
 	public String achievement_message_temp;
 	public String achievement_message_name;
 
-	public Boolean votifierReceiveTweetTweet;
+	public Boolean votifierReceiveTweet;
 	public String votifier_message_temp;
 
-	public Boolean playerDeathTweetTweet;
-	public Boolean playerDeathByPlayerTweetTweet;
-	public String player_death_message_temp;
+	public Boolean playerDeathTweet;
+	public Boolean playerDeathByPlayerTweet;
+	public String player_death_by_player_message_temp;
 
 	public Boolean receiveStream;
 
@@ -85,11 +83,11 @@ public class MineTweetConfig
 
 	public void loadConfig()
 	{
-		system = new ConfigAccessor(plugin, "main.yml");
-		twitter = new ConfigAccessor(plugin, "twitter.yml");
-		bot = new ConfigAccessor(plugin, "bot.yml");
+		system = new ConfigAccessor(plugin, plugin.getPluginJarFile(), "main.yml");
+		twitter = new ConfigAccessor(plugin, plugin.getPluginJarFile(), "twitter.yml");
+		bot = new ConfigAccessor(plugin, plugin.getPluginJarFile(), "bot.yml");
 
-		achievement = new ConfigAccessor(plugin, "achievement.yml");
+		achievement = new ConfigAccessor(plugin, plugin.getPluginJarFile(), "achievement.yml");
 
 		system.saveDefaultConfig();
 		twitter.saveDefaultConfig();
@@ -117,7 +115,7 @@ public class MineTweetConfig
 		this.playerQuitTweet = twitter.getConfig().getBoolean("PlayerQuitTweet");
 		this.quit_message_temp = twitter.getConfig().getString("QuitMessageTemplate", "$userさんがサーバーからログアウトしました。現在$number人がログインしています。【自動投稿】");
 
-		this.tweetWithIma = twitter.getConfig().getBoolean("TweetWithImage");
+		this.tweetWithIma = twitter.getConfig().getBoolean("TweetWithImage", false);
 
 		this.serverStartTweet = twitter.getConfig().getBoolean("ServerStartTweet");
 		this.start_message_temp = twitter.getConfig().getString("ServerStartTemplate", "サーバーを起動しました。【自動投稿】");
@@ -136,8 +134,13 @@ public class MineTweetConfig
 		this.achievementAwardedTweet = twitter.getConfig().getBoolean("AchievementAwardedTweet");
 		this.achievement_message_temp = twitter.getConfig().getString("AchievementAwardedTemplate", "$userさんが、「$achievement」という実績を取得しました。【自動投稿】");
 
-		this.votifierReceiveTweetTweet = twitter.getConfig().getBoolean("VotifierReceiveTweet");
+		this.votifierReceiveTweet = twitter.getConfig().getBoolean("VotifierReceiveTweet");
 		this.votifier_message_temp = twitter.getConfig().getString("VotifierReceiveTemplate", "$userさんが、「$service」で当鯖に投票しました。【自動投稿】");
+
+		this.playerDeathTweet = twitter.getConfig().getBoolean("PlayerDeathTweet");
+
+		this.playerDeathByPlayerTweet = twitter.getConfig().getBoolean("PlayerDeathByPlayerTweet");
+		this.player_death_by_player_message_temp = twitter.getConfig().getString("PlayerDeathByPlayerTemplate", "$deaderさんが$killerさんによってキルされました。(武器: $item)");
 
 		this.cmd_message_temp = twitter.getConfig().getString("CommandTweetTemplate", "(サーバーから$userが投稿) $message");
 

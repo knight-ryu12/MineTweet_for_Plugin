@@ -1,6 +1,6 @@
-package com.ittekikun.plugin.MineTweet.Event.UserStream;
+package com.ittekikun.plugin.minetweet.event.UserStream;
 
-import com.ittekikun.plugin.MineTweet.Event.MineTweetEvent;
+import com.ittekikun.plugin.minetweet.event.MineTweetEvent;
 
 public class onUserListDeletionEvent extends MineTweetEvent
 {

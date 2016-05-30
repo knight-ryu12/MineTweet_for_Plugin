@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet.Event;
+package com.ittekikun.plugin.minetweet.event;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

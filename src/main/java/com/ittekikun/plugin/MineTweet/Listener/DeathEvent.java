@@ -1,9 +1,8 @@
-package com.ittekikun.plugin.MineTweet.Listener;
+package com.ittekikun.plugin.minetweet.listener;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;

@@ -1,10 +1,11 @@
-package com.ittekikun.plugin.MineTweet.Listener;
+package com.ittekikun.plugin.minetweet.listener;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
-import org.bukkit.Material;
+import com.ittekikun.plugin.itkcore.utility.BukkitUtility;
+import com.ittekikun.plugin.itkcore.utility.VariousUtility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
+import com.ittekikun.plugin.minetweet.Utility;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,11 +13,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.inventory.ItemStack;
-import twitter4j.TwitterException;
 
-import static com.ittekikun.plugin.MineTweet.Keyword.*;
+import static com.ittekikun.plugin.minetweet.Keyword.*;
 
 public class DeathByPlayerEvent implements Listener
 {
@@ -45,7 +44,7 @@ public class DeathByPlayerEvent implements Listener
 			{
 				Player kill = (Player)entity;
 
-				ItemStack hand = Utility.getItemInHand(kill);
+				ItemStack hand = BukkitUtility.getItemInHand(kill);
 				String handItem = hand.getType().toString();
 
 				replaceKeywords(mtConfig.join_message_temp, death.getName(), kill.getName(), handItem);
@@ -74,7 +73,7 @@ public class DeathByPlayerEvent implements Listener
 		}
 		if (result.contains(KEYWORD_TIME))
 		{
-			String time = Utility.timeGetter(mtConfig.dateformat);
+			String time = VariousUtility.timeGetter(mtConfig.dateformat);
 
 			result = result.replace(KEYWORD_TIME, time);
 		}

@@ -1,7 +1,7 @@
-package com.ittekikun.plugin.MineTweet.Twitter.Stream;
+package com.ittekikun.plugin.minetweet.twitter.stream;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.Event.UserStream.*;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.event.UserStream.*;
 import org.bukkit.Bukkit;
 import twitter4j.*;
 

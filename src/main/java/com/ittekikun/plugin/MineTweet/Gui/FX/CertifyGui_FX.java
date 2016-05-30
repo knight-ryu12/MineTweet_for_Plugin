@@ -1,7 +1,7 @@
-package com.ittekikun.plugin.MineTweet.Gui.FX;
+package com.ittekikun.plugin.minetweet.gui.FX;
 
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

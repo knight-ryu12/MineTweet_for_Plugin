@@ -70,6 +70,13 @@
             <systemPath>${basedir}/lib/MCBans.jar</systemPath>
             <scope>system</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ittekikun.plugin</groupId>
+            <artifactId>ITKCore</artifactId>
+            <version>1.00</version>
+            <systemPath>${basedir}/lib/ITKCore.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 
     <repositories>

@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet.Exception;
+package com.ittekikun.plugin.minetweet.exception;
 
 public class CommandException extends Exception
 {

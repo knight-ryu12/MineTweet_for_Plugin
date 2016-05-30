@@ -1,22 +1,26 @@
-package com.ittekikun.plugin.MineTweet.Command;
+package com.ittekikun.plugin.minetweet.command;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.Exception.CommandException;
-import com.ittekikun.plugin.MineTweet.Locale.MessageLoader;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.locale.MessageFileLoader;
+import com.ittekikun.plugin.itkcore.utility.MessageUtility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.exception.CommandException;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import twitter4j.TwitterException;
 
+import static com.ittekikun.plugin.itkcore.utility.MessageUtility.MessageType.INFO;
+import static com.ittekikun.plugin.itkcore.utility.MessageUtility.MessageType.SEVERE;
+
 public abstract class BaseCommand
 {
 	protected static final Logger log = MineTweet.log;
+	protected static final String prefix = MineTweet.prefix;
 
 	protected CommandSender sender;
 	protected List<String> args = new ArrayList<String>();
@@ -29,7 +33,7 @@ public abstract class BaseCommand
 	protected MineTweet plugin;
 	protected MineTweetConfig mtConfig;
 	protected TwitterManager twitterManager;
-	protected MessageLoader messageLoader;
+	protected MessageFileLoader messageLoader;
 
 	public boolean run(final MineTweet plugin, final CommandSender sender, final String[] preArgs, final String cmd)
 	{
@@ -65,7 +69,7 @@ public abstract class BaseCommand
 		// 実行にプレイヤーであることが必要かチェックする
 		if (bePlayer && !(sender instanceof Player))
 		{
-			Utility.message(sender, messageLoader.loadMessage("language.name"));
+			MessageUtility.messageToSender(sender, SEVERE, messageLoader.loadMessage("command.error.console"), MineTweet.prefix, MineTweet.log);
 			return true;
 		}
 		if (sender instanceof Player)
@@ -76,7 +80,7 @@ public abstract class BaseCommand
 		// 権限チェック
 		if (!permission())
 		{
-			Utility.message(sender, "&cYou don't have permission to use this!");
+			MessageUtility.messageToSender(sender, SEVERE, messageLoader.loadMessage("command.error.permission"), MineTweet.prefix, MineTweet.log);
 			return true;
 		}
 
@@ -90,8 +94,8 @@ public abstract class BaseCommand
 			Throwable error = ex;
 			while (error instanceof CommandException)
 			{
-				Utility.message(sender, error.getMessage());
 				error = error.getCause();
+				error.printStackTrace();
 			}
 		}
 
@@ -116,7 +120,7 @@ public abstract class BaseCommand
 	 */
 	public void sendUsage()
 	{
-		Utility.message(sender, "&c/"+this.command+" "+name+" "+usage);
+		MessageUtility.messageToSender(sender, INFO, "&c/"+this.command + " "+ name + " " + usage, MineTweet.prefix, MineTweet.log);
 	}
 
 	public String getName()

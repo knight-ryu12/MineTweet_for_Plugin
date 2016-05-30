@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet;
+package com.ittekikun.plugin.minetweet;
 
 public class Keyword
 {
@@ -7,6 +7,7 @@ public class Keyword
     public static final String KEYWORD_KILLER = "$killer";
     public static final String KEYWORD_DEADER = "$deader";
     public static final String KEYWORD_REASON = "$reason";
+    public static final String KEYWORD_BANTYPE = "$bantype";
     public static final String KEYWORD_UUID = "$uuid";
     public static final String KEYWORD_SENDER = "$sender";
     public static final String KEYWORD_NUMBER = "$number";

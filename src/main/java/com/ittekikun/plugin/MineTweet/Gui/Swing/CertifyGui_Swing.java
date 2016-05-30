@@ -1,8 +1,9 @@
-package com.ittekikun.plugin.MineTweet.Gui.Swing;
+package com.ittekikun.plugin.minetweet.gui.Swing;
 
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.utility.VariousUtility;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.Utility;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
@@ -96,7 +97,7 @@ public class CertifyGui_Swing
                 {
                     if(pin.length() == 7)
                     {
-                        if(Utility.checkIntParse(pin))
+                        if(VariousUtility.checkIntParse(pin))
                         {
                             accessToken = twitter.getOAuthAccessToken(requesttoken, pin);
                             twitterManager.storeAccessToken(accessToken);

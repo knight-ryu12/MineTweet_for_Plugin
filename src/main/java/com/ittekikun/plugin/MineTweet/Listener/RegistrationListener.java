@@ -1,7 +1,7 @@
-package com.ittekikun.plugin.MineTweet.Listener;
+package com.ittekikun.plugin.minetweet.listener;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.MineTweet;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.MineTweet;
 import org.bukkit.plugin.PluginManager;
 
 public class RegistrationListener
@@ -37,16 +37,16 @@ public class RegistrationListener
 				if (pluginmanager.isPluginEnabled("MCBans") )
 				{
 					pluginmanager.registerEvents(new MCBansBANEvent(plugin), plugin);
-					MineTweet.log.info("MCBansと連携しました。(BAN)");
+					MineTweet.log.info(plugin.messageLoader.loadMessage("system.link.complete") + " [MCBans(BAN)]");
 				}
 				else
 				{
-					MineTweet.log.warning("MCBansが導入されてないので連携を無効化します。(BAN)");
+					MineTweet.log.warning(plugin.messageLoader.loadMessage("system.link.error.found") + " [MCBans(BAN)]");
 				}
 			}
 			else
 			{
-				MineTweet.log.warning("MCBansとの連携設定が正しく設定されていません。(BAN)");
+				MineTweet.log.warning(plugin.messageLoader.loadMessage("system.link.error.setting") + " [MCBans(BAN)]");
 			}
 		}
 
@@ -56,11 +56,11 @@ public class RegistrationListener
 			if (pluginmanager.isPluginEnabled("MCBans") )
 			{
 				pluginmanager.registerEvents(new MCBansKICKEvent(plugin), plugin);
-				MineTweet.log.info( "MCBansと連携しました。(KICK)");
+				MineTweet.log.info(plugin.messageLoader.loadMessage("system.link.complete") + " [MCBans(KICK)]");
 			}
 			else
 			{
-				MineTweet.log.warning("MCBansが導入されてないので連携を無効化します。(KICK)");
+				MineTweet.log.warning(plugin.messageLoader.loadMessage("system.link.error.found") + " [MCBans(KICK)]");
 			}
 		}
 
@@ -70,11 +70,11 @@ public class RegistrationListener
 			if (pluginmanager.isPluginEnabled("LunaChat") )
 			{
 				pluginmanager.registerEvents(new LunaChatEvent(plugin), plugin);
-				MineTweet.log.info("LunaChatと連携しました。");
+				MineTweet.log.info(plugin.messageLoader.loadMessage("system.link.complete") + " [LunaChat]");
 			}
 			else
 			{
-				MineTweet.log.warning("LunaChatが導入されてないので連携を無効化します。");
+				MineTweet.log.warning(plugin.messageLoader.loadMessage("system.link.error.found") + " [LunaChat]");
 			}
 		}
 
@@ -83,25 +83,25 @@ public class RegistrationListener
 			pluginmanager.registerEvents(new AchievementAwardedEvent(plugin), plugin);
 		}
 
-		if (mtConfig.votifierReceiveTweetTweet)
+		if (mtConfig.votifierReceiveTweet)
 		{
 			if (pluginmanager.isPluginEnabled("Votifier"))
 			{
 				pluginmanager.registerEvents(new VotifierReceiveEvent(plugin), plugin);
-				MineTweet.log.info( "Votifierと連携しました。");
+				MineTweet.log.info(plugin.messageLoader.loadMessage("system.link.complete") + " [Votifier]");
 			}
 			else
 			{
-				MineTweet.log.warning("Votifierが導入されてないので連携を無効化します。");
+				MineTweet.log.warning(plugin.messageLoader.loadMessage("system.link.error.found") + " [Votifier]");
 			}
 		}
 
-		if (mtConfig.playerDeathTweetTweet)
+		if (mtConfig.playerDeathTweet)
 		{
 			pluginmanager.registerEvents(new DeathEvent(plugin), plugin);
 		}
 
-		if (mtConfig.playerDeathByPlayerTweetTweet)
+		if (mtConfig.playerDeathByPlayerTweet)
 		{
 			pluginmanager.registerEvents(new DeathByPlayerEvent(plugin), plugin);
 		}

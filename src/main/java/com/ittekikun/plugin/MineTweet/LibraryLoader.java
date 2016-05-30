@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet;
+package com.ittekikun.plugin.minetweet;
 
 import java.io.File;
 import java.io.IOException;

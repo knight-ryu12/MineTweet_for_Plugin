@@ -1,17 +1,17 @@
-package com.ittekikun.plugin.MineTweet.Listener;
+package com.ittekikun.plugin.minetweet.listener;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.utility.VariousUtility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
+import com.ittekikun.plugin.minetweet.Utility;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import twitter4j.TwitterException;
 
-import static com.ittekikun.plugin.MineTweet.Keyword.*;
+import static com.ittekikun.plugin.minetweet.Keyword.*;
 
 //例のアレ
 public class ZyariEvent implements Listener
@@ -51,7 +51,7 @@ public class ZyariEvent implements Listener
 		}
 		if (result.contains(KEYWORD_TIME))
 		{
-			String time = Utility.timeGetter(mtConfig.dateformat);
+			String time = VariousUtility.timeGetter(mtConfig.dateformat);
 
 			result = result.replace(KEYWORD_TIME, time);
 		}

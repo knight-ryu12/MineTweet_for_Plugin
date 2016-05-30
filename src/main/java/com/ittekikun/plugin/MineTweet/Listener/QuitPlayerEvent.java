@@ -1,28 +1,23 @@
-package com.ittekikun.plugin.MineTweet.Listener;
+package com.ittekikun.plugin.minetweet.listener;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.TwitterManager;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.utility.BukkitUtility;
+import com.ittekikun.plugin.itkcore.utility.VariousUtility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.twitter.TwitterManager;
+import com.ittekikun.plugin.minetweet.Utility;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
-import java.nio.file.FileSystemException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
 
-import static com.ittekikun.plugin.MineTweet.Keyword.*;
+import static com.ittekikun.plugin.minetweet.Keyword.*;
 
 public class QuitPlayerEvent implements Listener
 {
@@ -46,7 +41,7 @@ public class QuitPlayerEvent implements Listener
 			Player player = event.getPlayer();
 			String name = player.getName();
 
-			ArrayList players = Utility.getOnlinePlayers();
+			ArrayList players = BukkitUtility.getOnlinePlayers();
 			String number = Integer.toString((players.size() - 1));
 
 			String message = replaceKeywords(mtConfig.quit_message_temp, name, number);
@@ -57,7 +52,7 @@ public class QuitPlayerEvent implements Listener
 			Player player = event.getPlayer();
 			final String name = player.getName();
 
-			ArrayList players = Utility.getOnlinePlayers();
+			ArrayList players = BukkitUtility.getOnlinePlayers();
 			final String number = Integer.toString((players.size() - 1));
 
 			//画像生成でラグが起きるので別スレッド
@@ -103,7 +98,7 @@ public class QuitPlayerEvent implements Listener
 		}
 		if (result.contains(KEYWORD_TIME))
 		{
-			String time = Utility.timeGetter(mtConfig.dateformat);
+			String time = VariousUtility.timeGetter(mtConfig.dateformat);
 
 			result = result.replace(KEYWORD_TIME, time);
 		}

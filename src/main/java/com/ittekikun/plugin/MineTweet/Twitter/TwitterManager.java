@@ -1,11 +1,11 @@
-package com.ittekikun.plugin.MineTweet.Twitter;
+package com.ittekikun.plugin.minetweet.twitter;
 
-import com.ittekikun.plugin.MineTweet.Config.MineTweetConfig;
-import com.ittekikun.plugin.MineTweet.Data.ConsumerKey;
-import com.ittekikun.plugin.MineTweet.Gui.Swing.CertifyGui_Swing;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Twitter.Stream.UserStream;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.utility.VariousUtility;
+import com.ittekikun.plugin.minetweet.MineTweetConfig;
+import com.ittekikun.plugin.minetweet.data.ConsumerKey;
+import com.ittekikun.plugin.minetweet.gui.Swing.CertifyGui_Swing;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.Utility;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
@@ -37,7 +37,6 @@ public class TwitterManager
 	{
 		if(mtConfig.GUICertify)
 		{
-			//TwitterStream twStream = new TwitterStreamFactory(configuration).getInstance();
 			ConfigurationBuilder builder = new ConfigurationBuilder();
 
 			builder.setOAuthConsumerKey(ConsumerKey.m_ConsumerKey);
@@ -90,13 +89,13 @@ public class TwitterManager
 			Configuration conf = builder.build();
 
 			twitter = new TwitterFactory(conf).getInstance();
-			userStream = new TwitterStreamFactory(conf).getInstance();
+			//userStream = new TwitterStreamFactory(conf).getInstance();
 		}
 
-		if((mtConfig.noticeEew || mtConfig.receiveStream) && status)
-		{
-			startRecieveStream();
-		}
+//		if((mtConfig.noticeEew || mtConfig.receiveStream) && status)
+//		{
+//			startRecieveStream();
+//		}
 	}
 
 	public void tweet(String tweet) throws TwitterException
@@ -120,7 +119,7 @@ public class TwitterManager
 
 		if(mtConfig.addDate)
 		{
-			String time = Utility.timeGetter(mtConfig.dateformat);
+			String time = VariousUtility.timeGetter(mtConfig.dateformat);
 			statusUpdate = new StatusUpdate(tweet + "\n" + time);
 		}
 		else
@@ -276,20 +275,20 @@ public class TwitterManager
         return new File(s);
     }
 
-	public void startRecieveStream()
-	{
-		userStream.addListener(new UserStream(mtConfig));
-
-		userStream.user();
-
-		//214358709 = @eewbot
-		//long[] list = {214358709L};
-		//FilterQuery query = new FilterQuery(list);
-		//userStream.filter(query);
-	}
-
-	public void shutdownRecieveStream()
-	{
-		userStream.shutdown();
-	}
+//	public void startRecieveStream()
+//	{
+//		userStream.addListener(new UserStream(mtConfig));
+//
+//		userStream.user();
+//
+//		//214358709 = @eewbot
+//		//long[] list = {214358709L};
+//		//FilterQuery query = new FilterQuery(list);
+//		//userStream.filter(query);
+//	}
+//
+//	public void shutdownRecieveStream()
+//	{
+//		userStream.shutdown();
+//	}
 }

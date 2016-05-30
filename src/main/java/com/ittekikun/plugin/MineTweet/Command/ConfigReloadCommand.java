@@ -1,12 +1,15 @@
-package com.ittekikun.plugin.MineTweet.Command;
+package com.ittekikun.plugin.minetweet.command;
 
-import com.ittekikun.plugin.MineTweet.Data.Permission;
-import com.ittekikun.plugin.MineTweet.Listener.RegistrationListener;
-import com.ittekikun.plugin.MineTweet.MineTweet;
-import com.ittekikun.plugin.MineTweet.Utility;
+import com.ittekikun.plugin.itkcore.utility.MessageUtility;
+import com.ittekikun.plugin.minetweet.data.Permission;
+import com.ittekikun.plugin.minetweet.listener.RegistrationListener;
+import com.ittekikun.plugin.minetweet.MineTweet;
+import com.ittekikun.plugin.minetweet.Utility;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.scheduler.BukkitScheduler;
+
+import static com.ittekikun.plugin.itkcore.utility.MessageUtility.MessageType.INFO;
+import static com.ittekikun.plugin.itkcore.utility.MessageUtility.MessageType.SEVERE;
 
 public class ConfigReloadCommand extends BaseCommand
 {
@@ -25,40 +28,25 @@ public class ConfigReloadCommand extends BaseCommand
 		{
 			HandlerList.unregisterAll(plugin);
 			plugin.botManager.taskCancel();
-			plugin.twitterManager.shutdownRecieveStream();
+			//plugin.twitterManager.shutdownRecieveStream();
 
 			plugin.mtConfig.loadConfig();
-			plugin.messageLoader.saveMessages();
+			messageLoader.saveMessages();
 
-			if((mtConfig.noticeEew || mtConfig.receiveStream) && twitterManager.status)
-			{
-				twitterManager.startRecieveStream();
-			}
+//			if((mtConfig.noticeEew || mtConfig.receiveStream) && twitterManager.status)
+//			{
+//				twitterManager.startRecieveStream();
+//			}
 			plugin.botManager.botSetup();
 			RegistrationListener.registrationListener(plugin);
+
+			MessageUtility.messageToSender(sender, INFO, messageLoader.loadMessage("config.reload.successful"), MineTweet.prefix, log);
 		}
 		catch (Exception ex)
 		{
-			if(sender instanceof Player)
-			{
-				Utility.message(sender, messageLoader.loadMessage("config.reload.successful"));
-			}
-			else
-			{
-				MineTweet.log.severe(messageLoader.loadMessage("config.reload.unsuccessful"));
-			}
-
 			ex.printStackTrace();
+			MessageUtility.messageToSender(sender, SEVERE, messageLoader.loadMessage("config.reload.unsuccessful"), MineTweet.prefix, log);
 			return;
-		}
-
-		if(sender instanceof Player)
-		{
-			Utility.message(sender, messageLoader.loadMessage("config.reload.successful"));
-		}
-		else
-		{
-			MineTweet.log.info(messageLoader.loadMessage("config.reload.unsuccessful"));
 		}
 	}
 

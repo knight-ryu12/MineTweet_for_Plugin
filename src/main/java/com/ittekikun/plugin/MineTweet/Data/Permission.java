@@ -1,4 +1,4 @@
-package com.ittekikun.plugin.MineTweet.Data;
+package com.ittekikun.plugin.minetweet.data;
 
 import org.bukkit.permissions.Permissible;
 
@@ -6,16 +6,14 @@ public enum Permission
 {
 	/* 権限ノード */
 	TWEET ("Tweet"),
-	ITWEET ("ITweet"),
 	HELP ("Help"),
 
 	// Admin Commands
 	RELOAD ("Reload"),
-	VAULTTWEET("VaultTweet"),
 	;
 
 	// ノードヘッダー
-	final String HEADER = "MineTweet.";
+	final String HEADER = "minetweet.";
 	private String node;
 
 	/**
