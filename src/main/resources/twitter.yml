@@ -81,4 +81,4 @@ VotifierReceiveTemplate: $userさんが、「$service」で当鯖に投票しま
 PlayerDeathTweet: false
 
 PlayerDeathByPlayerTweet: false
-PlayerDeathByPlayerTemplate: $deaderさんが$killerさんによってキルされました。(武器: $item)
+PlayerDeathByPlayerTemplate: $deaderさんが$killerさんによってキルされました。(武器：$item)
